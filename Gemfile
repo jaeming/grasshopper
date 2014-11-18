@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
+ruby "2.1.1"
+
 gem "haml-rails"
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'bootswatch-rails'
 gem 'autoprefixer-rails'
 

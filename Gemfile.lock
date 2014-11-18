@@ -127,7 +127,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  bootstrap-sass
+  bootstrap-sass (~> 3.3.1)
   bootswatch-rails
   coffee-rails (~> 4.0.0)
   haml-rails
