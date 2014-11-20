@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :boards
+
   get 'home/index'
 
   root 'home#index'
