@@ -3,6 +3,9 @@ class BoardsController < ApplicationController
 
   def index
     @board = Board.all
+    respond_with(@board) do |format|
+      format.json { render }
+    end
   end
 
   def show
@@ -13,13 +16,38 @@ class BoardsController < ApplicationController
   end
 
   def new
+    @board = Board.new
   end
 
   def create
     @board = Board.new(board_params)
 
-    @board.save
-    redirect_to @board
+    if @board.save
+      redirect_to @board
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @board = Board.find(params[:id])
+  end
+
+  def update
+    @board = Board.find(params[:id])
+
+    if @board.update(board_params)
+      redirect_to @board
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @board = Board.find(params[:id])
+    @board.destroy
+
+    redirect_to boards_path
   end
 
   private
