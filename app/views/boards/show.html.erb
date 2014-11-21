@@ -1,5 +1,0 @@
-<h2><%= @board.title %></h2>
-<p><%= @board.text %></p>
-<%= link_to 'edit', edit_board_path(@board) %>
-/
-<%= link_to 'delete', board_path(@board), method: :delete, data: { confirm: 'Are you sure you want to trash the whole discussion?' } %>

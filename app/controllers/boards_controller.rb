@@ -1,18 +1,14 @@
 class BoardsController < ApplicationController
-  respond_to :html, :json
+  respond_to :json
 
   def index
     @board = Board.all
-    respond_with(@board) do |format|
-      format.json { render }
+    render json: @board
     end
-  end
 
   def show
     @board = Board.find(params[:id])
-    respond_with(@board) do |format|
-      format.json { render }
-    end
+    render json: @board
   end
 
   def new
