@@ -2,54 +2,46 @@ class BoardsController < ApplicationController
   respond_to :json
 
   def index
-    @board = Board.all
-    render json: @board
-    end
+    @boards = Board.all
+    respond_with @boards
+    # render json: @boards
+  end
 
   def show
     @board = Board.find(params[:id])
-    render json: @board
+    respond_with @board
   end
 
   def new
     @board = Board.new
+    respond_with @board
   end
 
   def create
     @board = Board.new(board_params)
-
-    if @board.save
-      redirect_to @board
-    else
-      render 'new'
-    end
+    respond_with @board
   end
 
   def edit
     @board = Board.find(params[:id])
+    respond_with @board
   end
 
   def update
     @board = Board.find(params[:id])
-
-    if @board.update(board_params)
-      redirect_to @board
-    else
-      render 'edit'
-    end
+    respond_with @board
   end
 
   def destroy
     @board = Board.find(params[:id])
     @board.destroy
-
-    redirect_to boards_path
+    respond_with @board
   end
 
   private
 
   def board_params
-    params.require(:board).permit(:title, :text)
+    params.permit(:title, :text)
   end
 
 end

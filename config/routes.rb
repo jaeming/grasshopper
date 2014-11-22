@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
-  scope format: true, defaults: {format:'json'}, constraints: {format:'json'} do
+  scope defaults: {format:'json'}, constraints: {format:'json'} do
     resources :boards
+    resources :users
   end
 
-  resources :boards
-  root to: 'boards#index'
+  # resources :boards
+  # resources :users
+  #
+  # root to: 'boards#index'
 end
