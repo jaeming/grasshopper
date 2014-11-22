@@ -1,10 +1,9 @@
-class BoardsController < ApplicationController
+class BoardsController < ApiController
   respond_to :json
 
   def index
     @boards = Board.all
     respond_with @boards
-    # render json: @boards
   end
 
   def show
@@ -18,7 +17,7 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(board_params)
+    @board = Board.create(board_params)
     respond_with @board
   end
 
@@ -41,7 +40,7 @@ class BoardsController < ApplicationController
   private
 
   def board_params
-    params.permit(:title, :text)
+    params.require(:board).permit(:title, :text)
   end
 
 end
