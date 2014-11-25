@@ -2,7 +2,7 @@ class Message < ActiveRecord::Base
   belongs_to :board
 
   def board_name
-    puts "board name here"
+    board.title
   end
 
   def user_name

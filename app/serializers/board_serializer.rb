@@ -1,7 +1,6 @@
 class BoardSerializer < ActiveModel::Serializer
   attributes :id, :title, :text, :user_name, :created_at
-  has_many :messages
-  
+    
   def user_name
     object.user_name
   end

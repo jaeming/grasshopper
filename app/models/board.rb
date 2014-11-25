@@ -4,7 +4,6 @@ class Board < ActiveRecord::Base
   validates :text, presence: true, length: { minimum: 5 }
 
   def user_name
-    puts "user name here"
   end
-  
+
 end
