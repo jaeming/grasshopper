@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125022830) do
+ActiveRecord::Schema.define(version: 20141125102838) do
 
   create_table "boards", force: true do |t|
     t.string   "title"
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "messages", force: true do |t|
@@ -25,8 +26,16 @@ ActiveRecord::Schema.define(version: 20141125022830) do
     t.integer  "board_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "messages", ["board_id"], name: "index_messages_on_board_id"
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

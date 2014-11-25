@@ -16,9 +16,14 @@ class BoardsController < ApiController
     respond_with @board
   end
 
-  def create
-    @board = Board.create(board_params)
-    respond_with @board
+def create
+    user = User.find_by_email(params[:email])
+    if current_user
+      @board = Board.create(board_params)
+      respond_with @board
+    else
+      permission_denied_error
+    end
   end
 
   def edit

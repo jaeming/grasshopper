@@ -1,18 +1,13 @@
 class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
-  http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show]
-
+  # http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show]
   respond_to :json
+  skip_before_action :verify_authenticity_token
 
   def default_serializer_options
     {root: false}
   end
 
-  private
-
-  # Error responses and before_filter blocking work differently with Javascript requests.
-  # Rather than using before_filters to authenticate actions, we suggest using
-  # "guard clauses" like `permission_denied_error unless condition`
   def permission_denied_error
     error(403, 'Permission Denied!')
   end
@@ -25,5 +20,11 @@ class ApiController < ActionController::Base
 
     render json: response.to_json, status: status
   end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  helper_method :current_user
 
 end
