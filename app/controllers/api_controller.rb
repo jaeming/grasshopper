@@ -2,11 +2,11 @@ class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
   # http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show]
   respond_to :json
-  skip_before_action :verify_authenticity_token
 
-  def default_serializer_options
-    {root: false}
-  end
+
+  # def default_serializer_options
+  #   {root: false}
+  # end
 
   def permission_denied_error
     error(403, 'Permission Denied!')

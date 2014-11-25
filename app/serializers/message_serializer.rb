@@ -2,11 +2,11 @@ class MessageSerializer < ActiveModel::Serializer
   attributes :board_name, :id, :body, :user_name, :created_at
 
   def board_name
-    object.board_name
+    object.board.title
   end
 
   def user_name
-    object.user_name
+    # object.user.email
   end
 
   def created_at

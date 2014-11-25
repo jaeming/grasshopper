@@ -17,9 +17,8 @@ class BoardsController < ApiController
   end
 
 def create
-    user = User.find_by_email(params[:email])
     if current_user
-      @board = Board.create(board_params)
+      @board = current_user.boards.create(board_params)
       respond_with @board
     else
       permission_denied_error
