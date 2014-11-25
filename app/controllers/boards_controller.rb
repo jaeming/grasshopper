@@ -31,14 +31,23 @@ def create
   end
 
   def update
-    @board = Board.find(params[:id])
-    respond_with @board
+    if current_user
+      @board = Board.find(params[:id])
+      @board.update_attributes(board_params)
+      respond_with @board
+    else
+      permission_denied_error
+    end
   end
 
   def destroy
-    @board = Board.find(params[:id])
-    @board.destroy
-    respond_with @board
+    if current_user
+      @board = Board.find(params[:id])
+      @board.destroy
+      respond_with @board
+    else
+      permission_denied_error
+    end
   end
 
   private
