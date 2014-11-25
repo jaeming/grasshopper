@@ -9,9 +9,7 @@ group :test do
   gem 'database_cleaner'
 end
 
-gem 'bootstrap-sass', '~> 3.3.1'
-gem 'bootswatch-rails'
-gem 'autoprefixer-rails'
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'

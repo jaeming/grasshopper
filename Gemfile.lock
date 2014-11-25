@@ -14,6 +14,8 @@ GEM
       activesupport (= 4.1.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_model_serializers (0.9.0)
+      activemodel (>= 3.2)
     activemodel (4.1.0)
       activesupport (= 4.1.0)
       builder (~> 3.1)
@@ -28,12 +30,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
-    autoprefixer-rails (4.0.0.1)
-      execjs
-    bootstrap-sass (3.3.1.0)
-      sass (~> 3.2)
-    bootswatch-rails (3.2.4)
-      railties (>= 3.1)
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -153,9 +149,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autoprefixer-rails
-  bootstrap-sass (~> 3.3.1)
-  bootswatch-rails
+  active_model_serializers
   capybara
   coffee-rails (~> 4.0.0)
   database_cleaner

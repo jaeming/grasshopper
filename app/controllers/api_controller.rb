@@ -4,6 +4,10 @@ class ApiController < ActionController::Base
 
   respond_to :json
 
+  def default_serializer_options
+    {root: false}
+  end
+
   private
 
   # Error responses and before_filter blocking work differently with Javascript requests.
