@@ -7,11 +7,28 @@ class MessagesController < ApiController
     respond_with @message
   end
 
+  def show
+    @board = Board.find(params[:board_id])
+    @message = @board.messages.find(params[:id])
+    respond_with @message
+  end
 
   def create
     @board = Board.find(params[:board_id])
     @message = @board.messages.create(message_params)
     render json: @message
+  end
+
+  def edit
+    @board = Board.find(params[:board_id])
+    @message = @board.messages.find(params[:id])
+    respond_with @message
+  end
+
+  def update
+    @board = Board.find(params[:board_id])
+    @message = @board.messages.find(params[:id])
+    respond_with @message
   end
 
   def destroy
