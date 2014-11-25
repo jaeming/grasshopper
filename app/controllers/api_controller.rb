@@ -1,6 +1,6 @@
 class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
-  http_basic_authenticate_with name: "admin", password: "secret"
+  http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show]
 
   respond_to :json
 
