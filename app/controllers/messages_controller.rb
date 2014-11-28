@@ -14,9 +14,13 @@ class MessagesController < ApiController
   end
 
   def create
-    @board = Board.find(params[:board_id])
-    @message = @board.messages.create(message_params)
-    render json: @message
+    if current_user
+      @board = Board.find(params[:board_id])
+      @message = current_user.messages.create(message_params.merge(board: @board))
+      render json: @message
+    else
+      permission_denied_error
+    end
   end
 
   def edit
@@ -26,16 +30,25 @@ class MessagesController < ApiController
   end
 
   def update
-    @board = Board.find(params[:board_id])
-    @message = @board.messages.find(params[:id])
-    respond_with @message
+    if current_user
+      @board = Board.find(params[:board_id])
+      @message = @board.messages.find(params[:id])
+      @message.update_attributes(message_params)
+      respond_with @message
+    else
+      permission_denied_error
+    end
   end
 
   def destroy
-    @board = Board.find(params[:board_id])
-    @message = @board.messages.find(params[:id])
-    @message.destroy
-    respond_with @message
+    if current_user
+      @board = Board.find(params[:board_id])
+      @message = @board.messages.find(params[:id])
+      @message.destroy
+      respond_with @message
+    else
+      permission_denied_error
+    end
   end
 
   private

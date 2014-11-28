@@ -6,7 +6,7 @@ class MessageSerializer < ActiveModel::Serializer
   end
 
   def user_name
-    # object.user.email
+    object.user.name || object.user.email
   end
 
   def created_at
