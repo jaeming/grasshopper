@@ -7,11 +7,13 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'pry-rails'
 end
 
 group :development do
  gem 'faker'
 end
+
 
 gem 'active_model_serializers'
 

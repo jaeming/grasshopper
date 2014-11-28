@@ -3,7 +3,7 @@ class BoardsController < ApiController
 
   def index
     @boards = Board.all
-    respond_with @boards
+    render json: @boards, root: false
   end
 
   def show
