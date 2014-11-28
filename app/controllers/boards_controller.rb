@@ -8,7 +8,7 @@ class BoardsController < ApiController
 
   def show
     @board = Board.find(params[:id])
-    respond_with @board
+    render json: @board
   end
 
   def new
