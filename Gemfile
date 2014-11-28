@@ -9,6 +9,10 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :development do
+ gem 'faker'
+end
+
 gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
