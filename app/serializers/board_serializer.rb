@@ -1,6 +1,6 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :title, :text, :user_name, :created_at, :message_count
-  has_many :messages
+  attributes :id, :title, :text, :user_name, :created_at, :message_count, :url
+  # has_many :messages
 
   def user_name
     object.user.name || object.user.email
@@ -12,5 +12,9 @@ class BoardSerializer < ActiveModel::Serializer
 
   def message_count
     object.messages.count
+  end
+
+  def url
+    "boards/#{object.id}"
   end
 end

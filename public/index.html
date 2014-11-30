@@ -1,18 +1,73 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Grasshopper</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-  </head>
-  <body>
+<html lang="en" ng-app id="ng-app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Grasshopper</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/superhero/bootstrap.min.css" media="screen">
+  <link rel="stylesheet" href="css/app.css" media="screen">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+  <script src="boardController.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="mobile-menu hidden-md hidden-lg hidden-sm">
+      <ul class="mob-menu-grid">
+       <li>
+       <a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board</a>
+      </li>
+      <li>
+        <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign in / Sign up</a>
+      </li>
+      <li>
+        <a href="#"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> API</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-sm-3 hidden-xs">
+      <div class="side-menu">
+        <ul class="ch-grid">
+          <li>
+            <div class="ch-item ch-img-1">
+              <div class="ch-info">
+                <h3>CREATE</h3>
+                <p>NEW BOARD</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="ch-item ch-img-2">
+              <div class="ch-info">
+                <h3>ACCOUNT</h3>
+                <p>SIGN IN / SIGN UP</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="ch-item ch-img-3">
+              <div class="ch-info">
+                <h3>API</h3>
+                <p>HOOK IN</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-    
-    <script>
-      $.getJSON("/boards", function(data){window.data = data;});
-    </script>
-  </body>
+    <div class="col-sm-9 col-md-10">
+      <div id="ng-app" ng-app ng-controller="BoardsCtrlAjax">
+        <div ng-repeat="board in boards">
+          <h2>
+            <a href='{{board.url}}'>{{board.title}}</a>
+          </h2>
+          <p>{{board.text}}</p>
+          <small>By {{board.user_name}}</small>
+          <div class='time'><small>On {{board.created_at}}</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

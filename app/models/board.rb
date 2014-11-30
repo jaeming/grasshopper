@@ -3,5 +3,6 @@ class Board < ActiveRecord::Base
   belongs_to :user
   validates :title, presence: true, length: { minimum: 5 }
   validates :text, presence: true, length: { minimum: 5 }
-  # validates :user, presence: true
+  validates :user, presence: true
+
 end
