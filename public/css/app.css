@@ -14,13 +14,40 @@ a:hover {
   border-bottom: 1px solid #df691a;
 }
 
-.side-menu {
-/*  margin-top: -255px;
-  transform: scale(.4);*/
+.side-menu a {
+  border-bottom: 0px solid whitesmoke;
+}
+
+.navbar-brand, .nav a {
+  border-bottom: 0px solid whitesmoke;
+}
+
+.navbar-inverse {
+  background: #FF6666;
+}
+
+.navbar {
+  height: 41px;
 }
 
 .btn {
   transition: all 1000ms ease;
+  border-radius: 3px;
+  background: #FF6666;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mid {
+  margin-left: 200px;
+}
+
+.form-container {
+    background: #e8e8e8;
+    padding: 25px;
 }
 
 .mob-menu-grid {

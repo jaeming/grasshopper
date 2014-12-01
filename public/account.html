@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app id="ng-app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Grasshopper</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/superhero/bootstrap.min.css" media="screen">
+  <link rel="stylesheet" href="css/app.css" media="screen">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+</head>
+<body>
+<!-- Navbar -->
+  <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Grasshopper Boards</a>
+      </div>
+      <!-- Collection of nav links and other content for toggling -->
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="./index.html">Boards</a></li>
+          <li><a href="./account.html">Account</a></li>
+          <li><a href="./api.html">API</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <br><br>
+  <section id="login">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-9">
+          <div class="form-wrap">
+            <h1>Sign In</h1>
+            <div class="form-container">
+              <form role="form" action="/sessions" method="post" novalidate="novalidate" id="login-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="email" class="sr-only">Email</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                </div>
+                <br>
+                <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign Up">
+              </form>
+            </div>
+          </div>
+        </div> <!-- /.col-xs-12 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </section>
+  <br>
+  <div class="container">
+    <h4 class="mid">٩(͡๏̯͡๏)۶</h4>
+  </div>
+  <section id="signup">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-9">
+          <div class="form-wrap">
+            <h1>Sign Up</h1>
+            <div class="form-container">
+              <form role="form" action="/users" method="post" novalidate="novalidate" id="login-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="email" class="sr-only">Email</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Email Address">
+
+                  <label for="name" class="sr-only">name</label>
+                  <input type="name" name="name" id="name" class="form-control" placeholder="User Name">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                  <label for="password_confirmation" class="sr-only">Password Confirmation</label>
+                  <input type="password" name="key" id="password_confirmation" class="form-control" placeholder="Password Confirmation">
+                </div>
+                <br>
+                <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign Up">
+              </form>
+            </div>
+          </div>
+        </div> <!-- /.col-xs-12 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </section>
+</body>
+</body>
+</html

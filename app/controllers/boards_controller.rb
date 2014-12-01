@@ -53,7 +53,7 @@ def create
   private
 
   def board_params
-    params.require(:board).permit(:title, :text)
+    params.permit(:title, :text)
   end
 
 end
