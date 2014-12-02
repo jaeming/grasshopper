@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" ng-app id="ng-app">
+<html lang="en" ng-app="grasshopper" id="ng-app">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Grasshopper</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/superhero/bootstrap.min.css" media="screen">
   <link rel="stylesheet" href="css/app.css" media="screen">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-  <script src="boardController.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.js"></script>
+  <script src="app.js"></script>
 </head>
 <body>
   <div class="container">
@@ -36,7 +37,7 @@
               </div>
             </div>
           </li></a>
-          <a href="./account.html">
+          <a ng-href="#/account">
           <li>
             <div class="nav-item nav-img-2">
               <div class="nav-info">
@@ -44,7 +45,7 @@
                 <p>SETTINGS</p>
               </div>
             </div>
-          </li>
+          </li></a>
           <li>
             <div class="nav-item nav-img-3">
               <div class="nav-info">
@@ -58,16 +59,8 @@
     </div>
 
     <div class="col-sm-9 col-md-10">
-      <div id="ng-app" ng-app ng-controller="BoardsCtrlAjax">
-        <div ng-repeat="board in boards">
-          <h2>
-            <a href='{{board.url}}/messages/'>{{board.title}}</a>
-          </h2>
-          <p>{{board.text}}</p>
-          <small>By {{board.user_name}}</small>
-          <div class='time'><small>On {{board.created_at}}</small></div>
-        </div>
-      </div>
+      <ng-view>
+      </ng-view>
     </div>
   </div>
 </body>
