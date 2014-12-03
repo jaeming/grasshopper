@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     resources :users
     resources :sessions
   end
+  scope :user do
+    get '/current_user' => 'sessions#show_current_user'
+  end
 end

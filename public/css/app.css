@@ -14,8 +14,27 @@ a:hover {
   border-bottom: 1px solid #df691a;
 }
 
+.board-title {
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 15px solid #ededed;
+}
+
+.reply {
+  margin-bottom: 35px;
+  max-width: 50em;
+}
+
 .side-menu a {
   border-bottom: 0px solid whitesmoke;
+}
+
+.message-box {
+  background: #fff;
+  border-radius: 9px;
+  margin: 15px 0;
+  max-width: 50em;
+  padding: 12px;
 }
 
 .navbar-brand, .nav a {
