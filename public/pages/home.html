@@ -1,0 +1,17 @@
+<section class="margin-top">
+  <div class="mobile-menu hidden-md hidden-lg hidden-sm">
+    <a ng-href="#/new_board" class="btn new">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board
+    </a>
+  </div>
+  <div ng-controller="BoardsCtrlAjax">
+    <div ng-repeat="board in boards">
+      <h2>
+        <a ng-href='/{{board.url}}/messages/'>{{board.title}}</a>
+      </h2>
+      <p>{{board.text}}</p>
+      <small>By {{board.user_name}}</small>
+      <div class='time'><small>On {{board.created_at}}</small></div>
+    </div>
+  </div>
+</section>

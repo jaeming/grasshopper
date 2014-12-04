@@ -1,0 +1,13 @@
+<section class="margin-top">
+  <div ng-controller="MessagesCtrlAjax">
+    <div ng-repeat="message in messages">
+      <h1 class="board-title" ng-show="$first">{{message.board_name}}</h1>
+      <div class="message-box">
+        <p>{{message.body}}</p>
+        <small>By {{message.user_name}}</small>
+        <div class='time'><small>On {{message.created_at}}</small></div>
+      </div>
+    </div>
+  </div>
+  <a ng-href="#/new_message"><div class="reply btn-block btn btn-danger">Reply</div></a>
+</section>

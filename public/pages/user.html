@@ -1,0 +1,8 @@
+<section class="main center">
+  <div ng-controller="UsersCtrlAjax" class="box">
+    <h4>{{user.name}}</h4>
+    <p>{{user.email}}.</p>
+    <p>{{user.status}}.</p>
+    <button data-method="delete" href="/sessions/{{user.id}}" class="btn btn-danger">Log out</button>
+  </div>
+</section>

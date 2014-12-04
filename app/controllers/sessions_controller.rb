@@ -5,9 +5,10 @@ class SessionsController < ApiController
   def show_current_user
     if current_user
       render status: 200, json:
-      {success: true, info: "Current user", user: current_user}
+      {success: "user", status: "You are signed in", email: current_user.email, name: "Hello " +current_user.name, id: current_user.id}
     else
-      permission_denied_error
+      render json:
+      {success: "account", status: "You are not signed in", email: "Sign in / Sign up"}
     end
   end
 

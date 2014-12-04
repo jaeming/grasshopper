@@ -37,6 +37,19 @@ a:hover {
   padding: 12px;
 }
 
+.box {
+  background: #fff;
+  border-radius: 9px;
+  margin: 15px 0;
+  max-width: 20em;
+  padding-top: 8px;
+  padding-bottom: 18px;
+  text-align: center;
+  margin-left: 8%;
+}
+
+
+
 .navbar-brand, .nav a {
   border-bottom: 0px solid whitesmoke;
 }
@@ -48,6 +61,8 @@ a:hover {
 .navbar {
   height: 41px;
 }
+
+
 
 .btn {
   transition: all 1000ms ease;
@@ -64,6 +79,10 @@ a:hover {
   margin-left: 200px;
 }
 
+.main {
+  margin-top: 60px;
+}
+
 .form-container {
     background: #e8e8e8;
     padding: 25px;
@@ -77,9 +96,13 @@ a:hover {
   width: 100%;
 }
 
-.mob-menu-grid li{
-  padding-bottom: 7px;
-  margin: 0;
+.new {
+  color: #FFECEC;
+}
+
+.new:hover {
+  color: #FFF;
+  background: #D74A4A;
 }
 
 .nav-grid {
@@ -123,17 +146,17 @@ a:hover {
 
 .nav-img-1 {
     background-size: cover;
-    background-image: url(../1-b.png);
+    background-image: url(../images/1-b.png);
 }
 
 .nav-img-2 {
     background-size: cover;
-    background-image: url(../2-b.png);
+    background-image: url(../images/2-b.png);
 }
 
 .nav-img-3 {
     background-size: cover;
-    background-image: url(../3-b.png);
+    background-image: url(../images/3-b.png);
 }
 
 .nav-info {
@@ -187,4 +210,14 @@ a:hover {
 
 .nav-item:hover .nav-info p {
     opacity: 1;
+}
+
+.margin-top {
+  margin-top: 35px;
+}
+
+@media only screen and (max-width: 766px) {
+.collapsing, .in {background-color: tomato;}
+.collapsing ul li a, .in ul li a {color: #fff!important;}
+.collapsing ul li a:hover, .in ul li a:hover {color: #f1f1f1!important;}
 }

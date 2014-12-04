@@ -10,7 +10,7 @@ class MessagesController < ApiController
   def show
     @board = Board.find(params[:board_id])
     @message = @board.messages.find(params[:id])
-    respond_with @message
+    render json: @message, root: false
   end
 
   def create
