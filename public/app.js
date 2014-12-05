@@ -1,4 +1,4 @@
-var grasshopper = angular.module('grasshopper', ['ngRoute']);
+var grasshopper = angular.module('grasshopper', ['ngRoute', 'ngAnimate']);
 
 // Controllers
 grasshopper.controller('BoardsCtrlAjax', function($scope, $http)

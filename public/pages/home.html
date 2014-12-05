@@ -7,28 +7,34 @@
   <div ng-controller="BoardsCtrlAjax">
     <div ng-repeat="board in boards">
       <h2>
-        <a ng-href='/{{board.url}}/messages/'>{{board.title}}</a>
+        <a href ng-click="expand = !expand">{{board.title}}</a>
       </h2>
       <p>{{board.text}}</p>
       <small>By {{board.user_name}}</small>
       <div class='time'><small>On {{board.created_at}}</small></div>
-      <div class="board-title"></div>
-      <div ng-repeat="message in board.messages">
-        <div class="message-box">
-          <p>{{message.body}}</p>
-          <small>By {{message.user_name}}</small>
-          <div class='time'><small>{{message.created_at}}</small></div>
-        </div>
-      </div>
-      <div class="form-container">
-        <form role="form" action="{{ board.url + '/messages' }}" method="post" novalidate="novalidate" id="login-form" autocomplete="off">
-          <div class="form-group">
-            <label for="body" class="sr-only">body</label>
-            <textarea rows="4" cols="50" name="body" id="body" class="form-control" placeholder="Leave a new message"></textarea>
+      <div>
+        <div class="animate-show" ng-show="expand">
+          <div class="message-border"></div>
+          <div ng-repeat="message in board.messages">
+            <div class="message-box">
+              <p>{{message.body}}</p>
+              <small>By {{message.user_name}}</small>
+              <div class='time'><small>{{message.created_at}}</small></div>
+            </div>
           </div>
-          <br>
-          <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
-        </form>
+          <div class="form-container">
+            <form role="form" action="{{ board.url + '/messages' }}" method="post" novalidate="novalidate" id="message-form" autocomplete="off">
+              <div class="form-group">
+                <label for="body" class="sr-only">body</label>
+                <textarea rows="4" cols="50" name="body" id="body" class="form-control" placeholder="Leave a new message"></textarea>
+              </div>
+              <br>
+              <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+            </form>
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

@@ -20,6 +20,12 @@ a:hover {
   border-bottom: 15px solid #ededed;
 }
 
+.message-border {
+  margin-bottom: 30px;
+  padding: 12px;
+  border-bottom: 15px solid #ededed;
+}
+
 .reply {
   margin-bottom: 35px;
   max-width: 50em;
@@ -47,6 +53,7 @@ a:hover {
   text-align: center;
   margin-left: 8%;
 }
+
 
 
 
@@ -86,6 +93,8 @@ a:hover {
 .form-container {
     background: #e8e8e8;
     padding: 25px;
+    max-width: 50em;
+    margin-bottom: 55px;
 }
 
 .mob-menu-grid {
@@ -214,6 +223,26 @@ a:hover {
 
 .margin-top {
   margin-top: 35px;
+}
+
+.ng-hide-remove {
+    -webkit-animation: zoomIn 0.7s;
+    animation: zoomIn 0.7s;
+}
+
+.ng-hide-add {
+    -webkit-animation: fadeOutUp 0.7s;
+    animation: fadeOutUp 0.7s;
+    display: block !important;
+}
+
+.margin-top.ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+.margin-top.ng-enter-active {
+    opacity: 1;
 }
 
 @media only screen and (max-width: 766px) {
