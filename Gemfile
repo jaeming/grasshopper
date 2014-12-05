@@ -7,8 +7,9 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'pry-rails'
 end
+
+gem 'pry-rails'
 
 group :development do
   gem 'faker'

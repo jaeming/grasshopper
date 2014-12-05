@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="form-container">
-            <form role="form" action="{{ board.url + '/messages' }}" method="post" novalidate="novalidate" id="message-form" autocomplete="off">
+            <form role="form" ng-submit="addMessage(board)" action="{{ board.url + '/messages' }}" method="post" novalidate="novalidate" id="message-form" autocomplete="off">
               <div class="form-group">
                 <label for="body" class="sr-only">body</label>
                 <textarea rows="4" cols="50" name="body" id="body" class="form-control" placeholder="Leave a new message"></textarea>

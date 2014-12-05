@@ -1,4 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
   attributes :id, :title, :text, :user_name, :created_at, :message_count, :url
   has_many :messages
 
@@ -15,6 +16,7 @@ class BoardSerializer < ActiveModel::Serializer
   end
 
   def url
-    "boards/#{object.id}"
+    board_path object
   end
+
 end

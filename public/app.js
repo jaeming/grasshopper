@@ -25,6 +25,18 @@ $scope.user = data; // response data
 });
 });
 
+grasshopper.controller('CreateBoardCtrl', function($scope, $http)
+{
+$scope.createBoard = function(){
+  $http({method: 'POST', url: "/boards", data: {title: $scope.title, text: $scope.text}}).success(function(data) {
+    $scope.text = "";
+    $scope.title = "";
+    console.log(data)
+  })
+};
+}
+);
+
 // Routes
 grasshopper.config(['$routeProvider',
   function($routeProvider) {
@@ -42,7 +54,8 @@ grasshopper.config(['$routeProvider',
         templateUrl: 'pages/user.html'
       }).
       when('/new_board', {
-        templateUrl: 'pages/newboard.html'
+        templateUrl: 'pages/newboard.html',
+        controller: "CreateBoardCtrl"
       }).
       when('/new_message', {
         templateUrl: 'pages/newmessage.html'
@@ -51,6 +64,3 @@ grasshopper.config(['$routeProvider',
         templateUrl: 'pages/api.html'
       })
   }]);
-
-
-
