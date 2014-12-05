@@ -1,4 +1,5 @@
 class MessageSerializer < ActiveModel::Serializer
+  include ActionView::Helpers::DateHelper
   attributes :board_name, :id, :body, :user_name, :created_at
 
   def board_name
@@ -10,6 +11,6 @@ class MessageSerializer < ActiveModel::Serializer
   end
 
   def created_at
-    object.created_at.strftime('%B %d, %Y')
+    time_ago_in_words(object.created_at) + " ago"
   end
 end

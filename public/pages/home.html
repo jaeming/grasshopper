@@ -12,6 +12,24 @@
       <p>{{board.text}}</p>
       <small>By {{board.user_name}}</small>
       <div class='time'><small>On {{board.created_at}}</small></div>
+      <div class="board-title"></div>
+      <div ng-repeat="message in board.messages">
+        <div class="message-box">
+          <p>{{message.body}}</p>
+          <small>By {{message.user_name}}</small>
+          <div class='time'><small>{{message.created_at}}</small></div>
+        </div>
+      </div>
+      <div class="form-container">
+        <form role="form" action="{{ board.url + '/messages' }}" method="post" novalidate="novalidate" id="login-form" autocomplete="off">
+          <div class="form-group">
+            <label for="body" class="sr-only">body</label>
+            <textarea rows="4" cols="50" name="body" id="body" class="form-control" placeholder="Leave a new message"></textarea>
+          </div>
+          <br>
+          <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+        </form>
+      </div>
     </div>
   </div>
 </section>

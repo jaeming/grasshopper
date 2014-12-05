@@ -53,6 +53,6 @@ class MessagesController < ApiController
 
   private
     def message_params
-      params.require(:message).permit(:body)
+      params.permit(:body)
     end
 end
