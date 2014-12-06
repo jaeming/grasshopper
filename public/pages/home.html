@@ -12,9 +12,9 @@
       <p>{{board.text}}</p>
       <small>By {{board.user_name}}</small>
       <div class='time'><small>On {{board.created_at}}</small></div>
-      <div>
-        <div class="animate-show" ng-show="expand">
-          <div class="message-border"></div>
+              <div class="animated">
+      <div ng-if="expand">
+      <div class="message-border"></div>
           <div ng-repeat="message in board.messages">
             <div class="message-box">
               <p>{{message.body}}</p>
@@ -33,7 +33,6 @@
             </form>
 
           </div>
-
         </div>
       </div>
     </div>

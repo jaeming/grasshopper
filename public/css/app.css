@@ -225,12 +225,12 @@ a:hover {
   margin-top: 35px;
 }
 
-.ng-hide-remove {
+.ng-if-remove {
     -webkit-animation: fadeInRight 0.7s;
     animation: zoomIn 0.7s;
 }
 
-.ng-hide-add {
+.ng-if-add {
     -webkit-animation: fadeOutUp 0.7s;
     animation: fadeOutUp 0.7s;
     display: block !important;
@@ -239,6 +239,17 @@ a:hover {
 div[ng-view].ng-enter {
   -webkit-animation: zoomIn 0.7s;
   animation: zoomIn 0.7s;
+}
+
+.animated > .ng-enter {
+  -webkit-animation: zoomIn 0.7s;
+  animation: zoomIn 0.7s;
+}
+
+.animated > .ng-leave {
+  -webkit-animation: fadeOutUp 0.7s;
+  animation: fadeOutUp 0.7s;
+  display: block !important;
 }
 
 
