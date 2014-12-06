@@ -17,7 +17,7 @@ class SessionsController < ApiController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       puts user.email
-      respond_with user
+      render json: user
     else
       permission_denied_error
     end
