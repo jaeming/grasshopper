@@ -19,14 +19,16 @@ $scope.messages = data; // response data
 });
 });
 
-grasshopper.controller('UsersCtrlAjax', function($scope, $http)
+grasshopper.controller('UsersCtrlAjax', function($scope, $http, $window)
 {
   $http({method: 'GET', url: '/user/current_user.json'}).success(function(data)
   {
 $scope.user = data; // response data
 $scope.logOut = function(){
   $http({method: 'DELETE', url: "/sessions/" + $scope.user.id }).success(function(data) {
-    console.log(data)
+    console.log(data);
+    location.href = '#/';
+    $window.location.reload();
   })
 };
 });
@@ -43,15 +45,14 @@ grasshopper.controller('CreateBoardCtrl', function($scope, $http)
   };
 });
 
-grasshopper.controller('LogInCtrl', function($scope, $http)
+grasshopper.controller('LogInCtrl', function($scope, $http, $window)
 {
   $scope.logIn = function(){
     $http({method: 'POST', url: "/sessions", data: {email: $scope.email, password: $scope.password}}).success(function(data) {
-      if ($scope.email) {
-          location.href = '#/user';
-        }
       $scope.email = "";
       $scope.password = "";
+      location.href = '#/user';
+      $window.location.reload();
     })
   };
 });
