@@ -20,6 +20,12 @@ a:hover {
   border-bottom: 15px solid #ededed;
 }
 
+.message-title {
+  margin-bottom: 0px;
+  padding-bottom: 3px;
+  border-bottom: 15px solid #ededed;
+}
+
 .message-border {
   margin-bottom: 30px;
   padding: 12px;

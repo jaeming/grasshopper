@@ -7,14 +7,14 @@ grasshopper.controller('BoardsCtrlAjax', function($scope, $http)
   $http({method: 'GET', url: '/boards.json'}).success(function(data)
   {
 $scope.boards = data; // response data
-});
-});
-
-grasshopper.controller('MessagesCtrlAjax', function($scope, $http)
-{
-  $http({method: 'GET', url: '/boards/1/messages.json'}).success(function(data)
-  {
-$scope.messages = data; // response data
+$scope.addMessage = function( url ){
+  $http({ method: 'POST', url: url + '/messages', data: { body: $scope.body} })
+  .success(function(data) {
+    $scope.body = "";
+    console.log(data)
+    location.reload();
+  })
+};
 });
 });
 
@@ -29,6 +29,13 @@ $scope.logOut = function(){
     location.href = '#/';
     $window.location.reload();
   })
+};
+$scope.deleteMessage = function( url, id ){
+$http({method: 'DELETE', url: url + "/messages/" + id }).success(
+  function(data) {
+    location.reload();
+  }
+  )
 };
 });
 });
