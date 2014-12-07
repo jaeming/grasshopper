@@ -262,6 +262,17 @@ button:focus {outline:0;}
     display: block !important;
 }
 
+.animated > .ng-hide-remove {
+    -webkit-animation: fadeInRight 0.7s;
+    animation: zoomIn 0.7s;
+}
+
+.animated > .ng-hide-add {
+    -webkit-animation: fadeOutUp 0.7s;
+    animation: fadeOutUp 0.7s;
+    display: block !important;
+}
+
 div[ng-view].ng-enter {
   -webkit-animation: zoomIn 0.7s;
   animation: zoomIn 0.7s;
