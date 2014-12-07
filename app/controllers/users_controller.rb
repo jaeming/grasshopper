@@ -8,7 +8,12 @@ class UsersController < ApiController
 
   def create
     @user = User.create(user_params)
-    respond_with @user
+    if(@user.save)
+      session[:user_id] = @user.id
+      respond_with @user
+    else
+      permission_denied_error
+    end
   end
 
   private
