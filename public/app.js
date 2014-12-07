@@ -1,7 +1,6 @@
 var grasshopper = angular.module('grasshopper', ['ngRoute', 'ngAnimate']);
 
 
-
 // Controllers
 grasshopper.controller('BoardsCtrlAjax', function($scope, $http)
 {
@@ -57,14 +56,15 @@ grasshopper.controller('LogInCtrl', function($scope, $http, $window)
   };
 });
 
-grasshopper.controller('SignUpCtrl', function($scope, $http) {
+grasshopper.controller('SignUpCtrl', function($scope, $http, $window) {
   $scope.signUp = function(){
     $http({method: 'POST', url: "/sessions", data: {email: $scope.email, name: $scope.name, password: $scope.password, password_confirmation: $scope.password_confirmation}}).success(function(data) {
       $scope.email = "";
       $scope.name = "";
       $scope.password = "";
       $scope.password_confirmation = "";
-      console.log(data)
+      console.log(data);
+      Location.href = '#/user';
     })
   };
 });

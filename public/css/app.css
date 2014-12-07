@@ -53,9 +53,28 @@ a:hover {
   text-align: center;
   margin-left: 8%;
 }
+.tab {
+  background: #fff;
+  color: #898989;
+  border-radius: 0px;
+  border: 1px solid #E8E8E8;
+  padding: 8px;
+  transition: all 300ms ease !important;
+}
 
+.tab:hover {
+  background: #FF6666;
+  color: #fff;
+  border-radius: 0px;
+  border: 1px solid #E8E8E8;
+}
 
-
+.tab-active {
+  background: #E8E8E8  !important;
+  color: #898989 !important;
+  border-radius: 0px !important;
+  border: 1px solid #E8E8E8 !important;
+}
 
 .navbar-brand, .nav a {
   border-bottom: 0px solid whitesmoke;
@@ -70,12 +89,13 @@ a:hover {
 }
 
 
-
 .btn {
   transition: all 1000ms ease;
   border-radius: 3px;
   background: #FF6666;
 }
+
+button:focus {outline:0;}
 
 .center {
     margin: 0 auto;
