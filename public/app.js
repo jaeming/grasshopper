@@ -18,6 +18,14 @@ $scope.addMessage = function( url ){
 });
 });
 
+grasshopper.controller('MessagesCtrlAjax', function($scope, $http)
+{
+  $http({method: 'GET', url: '/boards/1/messages.json'}).success(function(data)
+  {
+$scope.messages = data; // response data
+});
+});
+
 grasshopper.controller('UsersCtrlAjax', function($scope, $http, $window)
 {
   $http({method: 'GET', url: '/user/current_user.json'}).success(function(data)
