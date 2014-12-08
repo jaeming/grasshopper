@@ -4,19 +4,19 @@
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board
     </a>
   </div>
-  <div ng-controller="UsersCtrlAjax">
-    <div ng-controller="BoardsCtrlAjax">
+  <div>
+
       <div ng-repeat="board in boards">
         <h2>
-          <a href ng-click="expand = !expand">{{board.title}}</a>
+          <a id="{{board.id}}" ui-sref="viewBoard({id:board.id})" >{{board.title}}</a>
         </h2>
         <p>{{board.text}}</p>
         <small>By {{board.user_name}}</small>
         <div class='time'><small>On {{board.created_at}}</small></div>
         <div class="animated">
-          <div ng-show="expand">
-            <h4 class="message-title">Messages</h4>
-            <div ng-repeat="message in board.messages">
+          <div ng-repeat="message in messages">
+            <div ng-if="message.board_name === board.title">
+            <h4 ng-show="$first" class="message-title">Messages</h4>
               <div class="message-box">
                 <p>{{message.body}}</p>
                 <small>By {{message.user_name}}</small>
@@ -25,8 +25,7 @@
                   <button ng-click="deleteMessage(board.url, message.id)" class="btn btn-danger btn-sm">Delete</button>
                 </div>
               </div>
-            </div>
-            <div class="form-container">
+              <div ng-show="$last" class="form-container">
               <form role="form" ng-submit="addMessage(board.url)" novalidate="novalidate" id="message-form" autocomplete="off">
                 <div class="form-group">
                   <label for="body" class="sr-only">body</label>
@@ -36,9 +35,13 @@
                 <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
               </form>
             </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
   </div>
+</div>
+</div>
 </section>
+
