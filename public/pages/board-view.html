@@ -1,0 +1,40 @@
+<section class="margin-top">
+  <div class="mobile-menu hidden-md hidden-lg hidden-sm">
+    <a ng-href="#/new_board" class="btn new">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board
+    </a>
+  </div>
+  <div ng-controller="BoardViewController">
+    <h2>
+      {{board.title}}
+    </h2>
+    <p>{{board.text}}</p>
+    <small>By {{board.user_name}}</small>
+    <div class='time'><small>On {{board.created_at}}</small></div>
+  </div>
+</section>
+<section ng-controller="MessageListController" class="margin-top">
+  <div ng-repeat="message in messages">
+    <h4 ng-show="$first" class="message-title">Messages</h4>
+    <div class="message-box">
+      <p>{{message.body}}</p>
+      <small>By {{message.user_name}}</small>
+      <div class='time'><small>{{message.created_at}}</small></div>
+      <div ng-if="message.user_name === user.name">
+        <button ng-click="deleteMessage(board.url, message.id)" class="btn btn-danger btn-sm">Delete</button>
+      </div>
+    </div>
+    <div ng-show="$last" class="form-container">
+      <form role="form" ng-submit="addMessage(board.url)" novalidate="novalidate" id="message-form" autocomplete="off">
+        <div class="form-group">
+          <label for="body" class="sr-only">body</label>
+          <textarea rows="4" cols="50" ng-model="$parent.body" class="form-control" placeholder="Leave a new message"></textarea>
+        </div>
+        <br>
+        <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+      </form>
+    </div>
+  </div>
+</section>
+
+
