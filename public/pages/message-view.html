@@ -1,0 +1,13 @@
+<section class="margin-top">
+
+    <a ui-sref="viewBoard({id:message.board_id})" ><h3 class="message-title">{{message.board_name}}</h3></a>
+    <div class="message-box">
+      <p>{{message.body}}</p>
+      <small>By {{message.user_name}}</small>
+      <div class='time'><small>{{message.created_at}}</small></div>
+      <div ng-if="message.user_name === user.name">
+        <button ng-click="deleteMessage(board.url, message.id)" class="btn btn-danger btn-sm">Delete</button>
+      </div>
+    </div>
+  </div>
+</section>

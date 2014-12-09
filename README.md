@@ -10,16 +10,16 @@ ____________
 
 ##### Back-end
 - algorithm for top boards & messages (recent activity)
-- search feature
+- search feature???
 
 ##### Front-end
-- success messages for create and delete
-- 403 messages, etc...
-- better re-directs after create and delete
-- convert user controller to a factory service
-- edit boards and messages
-- look at loading messages in a more optimized way
-- new board form as modal
+- success/error messages
+- convert user controller to a service (log in & log out)
+
+Finish re-creating CRUD actions with the new service:
+  - edit boards and messages
+  - delete Boards and Messages
+
 
 
 

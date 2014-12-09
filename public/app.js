@@ -5,14 +5,14 @@ var grasshopper = angular.module('grasshopper', ['ui.router', 'ngAnimate', 'ngRe
 angular.module('grasshopper.services', []).factory('Board', function($resource) {
   return $resource('/boards/:id', { id: '@id' }, {
     update: {
-      method: 'PATCH'
+      method: 'PUT'
     }
   });
 })
 .factory('Message', function($resource) {
-  return $resource('/boards/:id/messages', { id: '@id' }, {
+  return $resource('/boards/:board_id/messages/:id', { board_id: '@board_id',  id: '@id' }, {
     update: {
-      method: 'PATCH'
+      method: 'PUT'
     }
   });
 });
@@ -38,7 +38,19 @@ grasshopper.controller('BoardCreateController', function($scope, $state, $stateP
 });
 
 grasshopper.controller('MessageListController', function($scope, $state, $stateParams, $window, Message) {
- $scope.messages = Message.query({ id: $stateParams.id });
+ $scope.messages = Message.query({ board_id: $stateParams.id });
+ $scope.message = new Message( {board_id: $stateParams.id} );
+
+  $scope.addMessage= function() {
+  $scope.message.$save(function() {
+  //$state.go('viewBoard', {id: $stateParams.id});
+  $scope.messages = Message.query({ board_id: $stateParams.id });
+  });
+ };
+});
+
+grasshopper.controller('MessageViewController', function($scope, $state, $stateParams, Message, $window) {
+ $scope.message = Message.get({ board_id: $stateParams.board_id, id: $stateParams.id});
 });
 
 
@@ -59,11 +71,15 @@ angular.module('grasshopper').config(function($stateProvider) {
     url: '/boards/:id/edit',
     templateUrl: 'pages/Board-edit.html',
     controller: 'BoardEditController'
-  }).state('messages', { // index
-    url: '/boards/:id/messages',
-    templateUrl: 'pages/messages.html',
-    controller: 'MessageListController'
-  });
+  }).state('viewMessage', { // show
+    url: 'boards/:board_id/messages/:id/view',
+    templateUrl: 'pages/message-view.html',
+    controller: 'MessageViewController'
+  }).state('newMessage', { // create
+    url: '/boards/:board_id/messages/new',
+    templateUrl: 'pages/message-add.html',
+    controller: 'MessageCreateController'
+  });;
 }).run(function($state) {
   $state.go('boards');
 });

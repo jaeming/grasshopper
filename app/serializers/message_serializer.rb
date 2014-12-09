@@ -1,6 +1,6 @@
 class MessageSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
-  attributes :board_name, :id, :body, :user_name, :created_at
+  attributes :board_name, :board_id, :id, :body, :user_name, :created_at
 
   def board_name
     object.board.title
