@@ -5,14 +5,14 @@ var grasshopper = angular.module('grasshopper', ['ui.router', 'ngAnimate', 'ngRe
 angular.module('grasshopper.services', []).factory('Board', function($resource) {
   return $resource('/boards/:id', { id: '@id' }, {
     update: {
-      method: 'PUT'
+      method: 'PATCH'
     }
   });
 })
 .factory('Message', function($resource) {
   return $resource('/boards/:id/messages', { id: '@id' }, {
     update: {
-      method: 'PUT'
+      method: 'PATCH'
     }
   });
 });
@@ -25,6 +25,16 @@ grasshopper.controller('BoardListController', function($scope, $state, $window, 
 
 grasshopper.controller('BoardViewController', function($scope, $stateParams, Board) {
  $scope.board = Board.get({ id: $stateParams.id });
+});
+
+grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board) {
+ $scope.board = new Board();
+
+ $scope.addBoard = function() {
+  $scope.board.$save(function() {
+  $state.go('boards');
+  });
+ };
 });
 
 grasshopper.controller('MessageListController', function($scope, $state, $stateParams, $window, Message) {

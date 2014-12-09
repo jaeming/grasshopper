@@ -5,41 +5,14 @@
     </a>
   </div>
   <div>
-
-      <div ng-repeat="board in boards">
-        <h2>
-          <a id="{{board.id}}" ui-sref="viewBoard({id:board.id})" >{{board.title}}</a>
-        </h2>
-        <p>{{board.text}}</p>
-        <small>By {{board.user_name}}</small>
-        <div class='time'><small>On {{board.created_at}}</small></div>
-        <div class="animated">
-          <div ng-repeat="message in messages">
-            <div ng-if="message.board_name === board.title">
-            <h4 ng-show="$first" class="message-title">Messages</h4>
-              <div class="message-box">
-                <p>{{message.body}}</p>
-                <small>By {{message.user_name}}</small>
-                <div class='time'><small>{{message.created_at}}</small></div>
-                <div ng-if="message.user_name === user.name">
-                  <button ng-click="deleteMessage(board.url, message.id)" class="btn btn-danger btn-sm">Delete</button>
-                </div>
-              </div>
-              <div ng-show="$last" class="form-container">
-              <form role="form" ng-submit="addMessage(board.url)" novalidate="novalidate" id="message-form" autocomplete="off">
-                <div class="form-group">
-                  <label for="body" class="sr-only">body</label>
-                  <textarea rows="4" cols="50" ng-model="$parent.body" class="form-control" placeholder="Leave a new message"></textarea>
-                </div>
-                <br>
-                <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
-              </form>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div ng-repeat="board in boards">
+      <h2>
+        <a id="{{board.id}}" ui-sref="viewBoard({id:board.id})" >{{board.title}}</a>
+      </h2>
+      <p>{{board.text}}</p>
+      <small>By {{board.user_name}}</small>
+      <div class='time'><small>On {{board.created_at}}</small></div>
+    </div>
   </div>
 </div>
 </div>
