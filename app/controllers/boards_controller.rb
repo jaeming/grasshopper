@@ -31,8 +31,8 @@ def create
   end
 
   def update
-    if current_user
-      @board = Board.find(params[:id])
+    @board = Board.find(params[:id])
+    if current_user == @board.user
       @board.update_attributes(board_params)
       respond_with @board
     else
@@ -41,8 +41,8 @@ def create
   end
 
   def destroy
-    if current_user
-      @board = Board.find(params[:id])
+    @board = Board.find(params[:id])
+    if current_user == @board.user
       @board.destroy
       respond_with @board
     else

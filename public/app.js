@@ -23,8 +23,14 @@ grasshopper.controller('BoardListController', function($scope, $state, $window, 
  $scope.boards = Board.query();
 });
 
-grasshopper.controller('BoardViewController', function($scope, $stateParams, Board) {
- $scope.board = Board.get({ id: $stateParams.id });
+grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board) {
+  $scope.board = Board.get({ id: $stateParams.id });
+
+  $scope.updateBoard = function() {
+    $scope.board.$update(function() {
+      $state.transitionTo('viewBoard', { id: $stateParams.id });
+  });
+ };
 });
 
 grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board) {
@@ -43,8 +49,7 @@ grasshopper.controller('MessageListController', function($scope, $state, $stateP
 
   $scope.addMessage= function() {
   $scope.message.$save(function() {
-  //$state.go('viewBoard', {id: $stateParams.id});
-  $scope.messages = Message.query({ board_id: $stateParams.id });
+  $state.transitionTo('viewBoard', {id: $stateParams.id});
   });
  };
 });
@@ -70,7 +75,7 @@ angular.module('grasshopper').config(function($stateProvider) {
   }).state('editBoard', { // update
     url: '/boards/:id/edit',
     templateUrl: 'pages/Board-edit.html',
-    controller: 'BoardEditController'
+    controller: 'BoardViewController'
   }).state('viewMessage', { // show
     url: 'boards/:board_id/messages/:id/view',
     templateUrl: 'pages/message-view.html',
