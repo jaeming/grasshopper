@@ -98,6 +98,14 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
       $state.go('boards');
     })
   };
+
+  $scope.logOut = function(){
+  $http({method: 'DELETE', url: "/sessions/" + $scope.user.id }).success(function(data) {
+    console.log(data);
+    $window.location.reload();
+    $state.go('boards');
+    })
+  };
 })
 
 

@@ -1,54 +1,63 @@
-  <section class="main">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-6 col-sm-9">
-          <div class="form-wrap">
-            <button ng-click="tab = !tab" class="tab" ng-class="{'tab-active' : !tab}">Sign in</button>
-            <button ng-click="tab = !tab" class="tab" ng-class="{'tab-active' : tab}">Sign up</button>
-            <div ng-hide="tab">
-              <div class="form-container">
-                <form role="form" ng-submit="logIn()" novalidate="novalidate" id="login-form" autocomplete="off">
-                  <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="email" ng-model="email" class="form-control" placeholder="Email Address">
-                  </div>
-                  <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" ng-model="password" class="form-control" placeholder="Password">
-                  </div>
-                  <br>
-                  <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign in">
-                </form>
-              </div>
+<section ng-show="user.success == 'true'" class="main center">
+<div class="box">
+    <h4>{{user.name}}</h4>
+    <p>{{user.email}}.</p>
+    <p>{{user.status}}.</p>
+    <button ng-click="logOut()" class="btn btn-danger">Log out</button>
+  </div>
+</div>
+</section>
+<section ng-show="user.success == 'false'" class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-sm-9">
+        <div class="form-wrap">
+          <button ng-click="tab = !tab" class="tab" ng-class="{'tab-active' : !tab}">Sign in</button>
+          <button ng-click="tab = !tab" class="tab" ng-class="{'tab-active' : tab}">Sign up</button>
+          <div ng-hide="tab">
+            <div class="form-container">
+              <form role="form" ng-submit="logIn()" novalidate="novalidate" id="login-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="email" class="sr-only">Email</label>
+                  <input type="email" ng-model="email" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" ng-model="password" class="form-control" placeholder="Password">
+                </div>
+                <br>
+                <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign in">
+              </form>
             </div>
-            <div ng-show="tab">
-              <div class="form-container">
-                <form role="form" ng-submit="signUp()" novalidate="novalidate" id="signup-form" autocomplete="off">
-                  <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="email" ng-model="email" class="form-control" placeholder="Email Address">
+          </div>
+          <div ng-show="tab">
+            <div class="form-container">
+              <form role="form" ng-submit="signUp()" novalidate="novalidate" id="signup-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="email" class="sr-only">Email</label>
+                  <input type="email" ng-model="email" class="form-control" placeholder="Email Address">
 
-                    <label for="name" class="sr-only">name</label>
-                    <input type="name" ng-model="name" class="form-control" placeholder="User Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" ng-model="password" class="form-control" placeholder="Password">
-                    <label for="password_confirmation" class="sr-only">Password Confirmation</label>
-                    <input type="password" ng-model="password_confirmation" class="form-control" placeholder="Password Confirmation">
-                  </div>
-                  <br>
-                  <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign Up">
-                </form>
-              </div>
+                  <label for="name" class="sr-only">name</label>
+                  <input type="name" ng-model="name" class="form-control" placeholder="User Name">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" ng-model="password" class="form-control" placeholder="Password">
+                  <label for="password_confirmation" class="sr-only">Password Confirmation</label>
+                  <input type="password" ng-model="password_confirmation" class="form-control" placeholder="Password Confirmation">
+                </div>
+                <br>
+                <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign Up">
+              </form>
             </div>
-          </div> <!-- /.col-xs-12 -->
-        </div> <!-- /.row -->
-      </div> <!-- /.container -->
-    </div>
-  </section>
+          </div>
+        </div> <!-- /.col-xs-12 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </div>
+</section>
 
 
-  <br>
+<br>
 
 
