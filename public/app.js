@@ -18,9 +18,21 @@ angular.module('grasshopper.services', []).factory('Board', function($resource) 
 });
 
 
+grasshopper.service('userService', function($http) {
+this.getUser = function(){
+    var user = $http({method: 'GET', url: '/user/current_user.json'}).success(
+        function(data) {
+            return data;
+        });
+     return user;
+}});
+
+
 // Controllers
-grasshopper.controller('BoardListController', function($scope, $state, $window, Board) {
- $scope.boards = Board.query();
+
+
+grasshopper.controller('BoardListController', function($scope, $state, Board) {
+  $scope.boards = Board.query();
 });
 
 grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board) {
@@ -33,10 +45,14 @@ grasshopper.controller('BoardViewController', function($scope, $state, $statePar
  };
 });
 
-grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board) {
- $scope.board = new Board();
+grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board, userService) {
 
- $scope.addBoard = function() {
+  userService.getUser().then(function (response) {
+    $scope.user = response.data;
+  });
+
+  $scope.board = new Board();
+  $scope.addBoard = function() {
   $scope.board.$save(function() {
   $state.go('boards');
   });
@@ -57,6 +73,32 @@ grasshopper.controller('MessageListController', function($scope, $state, $stateP
 grasshopper.controller('MessageViewController', function($scope, $state, $stateParams, Message, $window) {
  $scope.message = Message.get({ board_id: $stateParams.board_id, id: $stateParams.id});
 });
+
+grasshopper.controller('UserController', function($scope, $state, $http, userService, $window) {
+  userService.getUser().then(function (response) {
+    $scope.user = response.data;
+  });
+
+  $scope.logIn = function(){
+    $http({method: 'POST', url: "/sessions", data: {email: $scope.email, password: $scope.password}}).success(function(data) {
+      $scope.email = "";
+      $scope.password = "";
+      $window.location.reload();
+      $state.go('boards');
+    })
+  };
+
+  $scope.signUp = function(){
+    $http({method: 'POST', url: "/users", data: {email: $scope.email, name: $scope.name, password: $scope.password, password_confirmation: $scope.password_confirmation}}).success(function(data) {
+      $scope.email = "";
+      $scope.name = "";
+      $scope.password = "";
+      $scope.password_confirmation = "";
+      $window.location.reload();
+      $state.go('boards');
+    })
+  };
+})
 
 
 // Routes
@@ -84,7 +126,11 @@ angular.module('grasshopper').config(function($stateProvider) {
     url: '/boards/:board_id/messages/new',
     templateUrl: 'pages/message-add.html',
     controller: 'MessageCreateController'
-  });;
+  }).state('account', { // create
+    url: '/account/',
+    templateUrl: 'pages/account.html',
+    controller: 'UserController'
+  });
 }).run(function($state) {
   $state.go('boards');
 });
