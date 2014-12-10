@@ -49,6 +49,10 @@ a:hover {
   padding: 12px;
 }
 
+.comment {
+  max-width: 50em;
+}
+
 .box {
   background: #fff;
   border-radius: 9px;
@@ -273,9 +277,9 @@ button:focus {outline:0;}
     display: block !important;
 }
 
-div[ng-view].ng-enter {
-  -webkit-animation: zoomIn 0.7s;
-  animation: zoomIn 0.7s;
+div[ui-view].ng-enter {
+  -webkit-animation: zoomIn 0.8s;
+  animation: zoomIn 0.8s;
 }
 
 .animated > .ng-enter {

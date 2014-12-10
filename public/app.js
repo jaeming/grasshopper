@@ -29,13 +29,16 @@ this.getUser = function(){
 
 
 // Controllers
-
-
 grasshopper.controller('BoardListController', function($scope, $state, Board) {
   $scope.boards = Board.query();
 });
 
-grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board) {
+grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board, userService) {
+
+  userService.getUser().then(function (response) {
+    $scope.user = response.data;
+  });
+
   $scope.board = Board.get({ id: $stateParams.id });
 
   $scope.updateBoard = function() {
@@ -46,11 +49,9 @@ grasshopper.controller('BoardViewController', function($scope, $state, $statePar
 });
 
 grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board, userService) {
-
   userService.getUser().then(function (response) {
     $scope.user = response.data;
   });
-
   $scope.board = new Board();
   $scope.addBoard = function() {
   $scope.board.$save(function() {
@@ -60,12 +61,14 @@ grasshopper.controller('BoardCreateController', function($scope, $state, $stateP
 });
 
 grasshopper.controller('MessageListController', function($scope, $state, $stateParams, $window, Message) {
- $scope.messages = Message.query({ board_id: $stateParams.id });
- $scope.message = new Message( {board_id: $stateParams.id} );
+  $scope.messages = Message.query({ board_id: $stateParams.id });
+  $scope.message = new Message( {board_id: $stateParams.id} );
 
   $scope.addMessage= function() {
   $scope.message.$save(function() {
-  $state.transitionTo('viewBoard', {id: $stateParams.id});
+  // $scope.messages = Message.query({ board_id: $stateParams.id });
+  location.reload();
+  //have switched to a reload here because was not able to post 2 messages concurrently as :id gets lost for some reason. It's not elegant but it fixes the bug for now.
   });
  };
 });
