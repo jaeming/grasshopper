@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     resources :boards do
       resources :messages
     end
+    match 'users', to: 'users#create', via: [:options]
     resources :users
-      match 'users', to: 'users#index', via: [:options]
     resources :sessions
   end
   scope :user do
