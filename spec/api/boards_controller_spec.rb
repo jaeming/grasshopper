@@ -3,7 +3,7 @@ require 'rails_helper'
 describe BoardsController, type: :controller do
   it "creates a board" do
     login
-    board_params = {"board"=>{"title"=>"this is a test", "text"=>"this is the text of the test"}, "format" => "json"}
+    board_params = {"title"=>"this is a test", "text"=>"this is the text of the test", "format" => "json"}
 
     request_headers = {
       "Accept" => "application/json",
