@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
     resources :users
     resources :sessions
+    get 'search' => 'search#index', as: :search
   end
   scope :user do
     get '/current_user' => 'sessions#show_current_user'

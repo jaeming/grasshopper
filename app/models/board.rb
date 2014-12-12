@@ -5,8 +5,4 @@ class Board < ActiveRecord::Base
   validates :text, presence: true, length: { minimum: 5 }
   validates :user, presence: true
 
-  def self.search(query)
-    where('title like ?', "%#{query}%")
-  end
-
 end
