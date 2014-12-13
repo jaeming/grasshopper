@@ -8,10 +8,9 @@
   <link rel="stylesheet" href="css/animate.css" media="screen">
   <link rel="stylesheet" href="css/app.css" media="screen">
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-animate.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-resource.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-animate.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
@@ -35,6 +34,7 @@
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul ng-controller="UserController" class="nav navbar-nav navbar-right">
           <li><a ui-sref="boards">Boards</a></li>
+          <li><a ui-sref="search">Search</a></li>
           <li><a ng-href="#/api">API</a></li>
           <li ng-if='user.success == "true"'><a ui-sref="account()">{{user.email}}</a></li>
           <li ng-if='user.success == "false"'><a ui-sref="account()">{{user.email}}</a></li>

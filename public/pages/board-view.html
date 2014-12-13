@@ -1,45 +1,42 @@
-<section ng-cloak class="margin-top">
+<section class="margin-top">
   <div class="mobile-menu hidden-md hidden-lg hidden-sm">
-    <a ng-href="#/new_board" class="btn new">
+    <a ui-sref="newBoard" class="btn new">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board
     </a>
   </div>
   <div ng-controller="BoardViewController">
-    <h2>
-      {{board.title}}
-    </h2>
+    <h2>{{board.title}}</h2>
     <p>{{board.text}}</p>
     <small>By {{board.user_name}}</small>
     <div class='time'><small>On {{board.created_at}}</small></div>
-      <div ng-if="board.user_name === user.name">
-      <a ui-sref="editBoard({id:board.id})" class='btn new'>EDIT</a>
+    <br>
+    <button ng-if='board.user_name === user.name' ng-click="editBoard({id:board.id})" class='btn new'>EDIT</button>
+  </div>
+  <br>
+  <div ng-controller="MessageListController" class="margin-top">
+    <h4 class="message-title">Messages</h4>
+    <div ng-repeat="message in messages">
+      <div class="message-box">
+        <p>{{message.body}}</p>
+        <small>By {{message.user_name}}</small>
+        <div class='time'><a ui-sref="viewMessage({board_id:message.board_id, id:message.id})"><small>{{message.created_at}}</small></a></div>
+        <div ng-if='message.user_name === user.name'>
+          <button ng-click="deleteMessage(message.board_id, message.id)" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-container">
+      <form role="form" ng-submit="addMessage({board_id:board.id})" novalidate="novalidate" id="message-form" autocomplete="off">
+        <div class="form-group">
+          <label for="body" class="sr-only">body</label>
+          <textarea rows="4" cols="50" ng-model="message.body" class="form-control" placeholder="Leave a new message"></textarea>
+        </div>
+        <br>
+        <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+      </form>
     </div>
   </div>
-</br>
 </section>
-<div ng-controller="MessageListController" class="margin-top">
-  <h4 class="message-title">Messages</h4>
-  <div ng-repeat="message in messages">
-    <div class="message-box">
-      <p>{{message.body}}</p>
-      <small>By {{message.user_name}}</small>
-      <div class='time'><a ui-sref="viewMessage({board_id:message.board_id, id:message.id})"><small>{{message.created_at}}</small></a></div>
-      <div ng-if="message.user_name === user.name">
-        <button ng-click="deleteMessage(board.url, message.id)" class="btn btn-danger btn-sm">Delete</button>
-      </div>
-    </div>
-  </div>
-  <div class="form-container">
-    <form role="form" ng-submit="addMessage({board_id:board.id})" novalidate="novalidate" id="message-form" autocomplete="off">
-      <div class="form-group">
-        <label for="body" class="sr-only">body</label>
-        <textarea rows="4" cols="50" ng-model="message.body" class="form-control" placeholder="Leave a new message"></textarea>
-      </div>
-      <br>
-      <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
-    </form>
-  </div>
-</div>
 
 
 

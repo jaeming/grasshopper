@@ -295,6 +295,11 @@ div[ui-view].ng-enter {
 
 
 
+
+
+
+
+
 @media only screen and (max-width: 766px) {
 .collapsing, .in {background-color: tomato;}
 .collapsing ul li a, .in ul li a {color: #fff!important;}

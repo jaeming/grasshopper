@@ -1,0 +1,20 @@
+<div class="form-wrap">
+<h1>Search Boards & Messages</h1>
+  <div class="form-container">
+    <form role="form" ng-submit="search()" novalidate="novalidate" id="search-form" autocomplete="off">
+      <div class="form-group">
+        <input ng-model="search.query" type="text" class="form-control" placeholder="Search">
+      </div>
+      <br>
+      <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+    </form>
+  </div>
+  <div ng-if="results" class="results">
+    <h2  class="board-title">results</h2>
+    <div ng-repeat="result in results">
+      <a ui-sref="viewBoard({id:result.id})"><p>{{result.title}}</p></a>
+      <a ui-sref="viewBoard({id:result.id})"><p>{{result.text}}</p></a>
+       <a ui-sref="viewMessage({board_id:result.board_id, id:result.id})"><p>{{result.body}}</p></a>
+    </div>
+  </div>
+</div>
