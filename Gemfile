@@ -25,6 +25,8 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'active_model_serializers'
 
+gem 'newrelic_rpm'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use SCSS for stylesheets
