@@ -3,7 +3,7 @@ class MessagesController < ApiController
 
   def index
     @board = Board.find(params[:board_id])
-    @message = @board.messages
+    @message = @board.messages.order("created_at DESC").all
     render json: @message, root: false
   end
 

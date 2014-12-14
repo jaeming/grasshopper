@@ -2,7 +2,7 @@ class BoardsController < ApiController
   respond_to :json
 
   def index
-    @boards = Board.all
+    @boards = Board.order("created_at DESC").all
     render json: @boards, root: false
   end
 
