@@ -31,8 +31,8 @@ class MessagesController < ApiController
 
   def update
     @board = Board.find(params[:board_id])
-    if current_user == @board.user
-      @message = @board.messages.find(params[:id])
+    @message = @board.messages.find(params[:id])
+    if current_user == @message.user
       @message.update_attributes(message_params)
       respond_with @message
     else
@@ -42,8 +42,8 @@ class MessagesController < ApiController
 
   def destroy
     @board = Board.find(params[:board_id])
-    if current_user == @board.user
-      @message = @board.messages.find(params[:id])
+    @message = @board.messages.find(params[:id])
+    if current_user == @message.user
       @message.destroy
       respond_with @message
     else
