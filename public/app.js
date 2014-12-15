@@ -19,23 +19,30 @@ angular.module('grasshopper.services', []).factory('Board', function($resource) 
   });
 });
 
-
 grasshopper.service('userService', function($http) {
-this.getUser = function(){
+  this.getUser = function(){
     var user = $http({method: 'GET', url: 'http://grasshopperapi.herokuapp.com/user/current_user.json'}).success(
-        function(data) {
-            return data;
-        });
-     return user;
-}});
+      function(data) {
+        return data;
+      });
+    return user;
+  }});
+
+grasshopper.service('noticeService', function($window){
+  this.showPopup=function(notice){
+    return $window.confirm(notice);
+  }
+});
 
 
 // Controllers
+
+  // BOARDS
 grasshopper.controller('BoardListController', function($scope, $state, Board) {
   $scope.boards = Board.query();
 });
 
-grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board, userService) {
+grasshopper.controller('BoardViewController', function($scope, $state, $stateParams, Board, userService, noticeService) {
 
   userService.getUser().then(function (response) {
     $scope.user = response.data;
@@ -46,8 +53,15 @@ grasshopper.controller('BoardViewController', function($scope, $state, $statePar
   $scope.updateBoard = function() {
     $scope.board.$update(function() {
       $state.transitionTo('viewBoard', { id: $stateParams.id });
-  });
- };
+    });
+  };
+  $scope.deleteBoard = function() {
+    if(noticeService.showPopup('Are you sure you want to delete this?')){
+      $scope.board.$remove(function() {
+        $state.go('boards');
+      });
+    };
+  };
 });
 
 grasshopper.controller('BoardCreateController', function($scope, $state, $stateParams, $window, Board, userService) {
@@ -56,13 +70,14 @@ grasshopper.controller('BoardCreateController', function($scope, $state, $stateP
   });
   $scope.board = new Board();
   $scope.addBoard = function() {
-  $scope.board.$save(function() {
-  $state.go('boards');
-  });
- };
+    $scope.board.$save(function() {
+      $state.go('boards');
+    });
+  };
 });
 
-grasshopper.controller('MessageListController', function($scope, $http, $state, $stateParams, $window, Message, userService) {
+  // MESSAGES
+grasshopper.controller('MessageListController', function($scope, $http, $state, $stateParams, $window, Message, Board, userService, noticeService) {
   userService.getUser().then(function (response) {
     $scope.user = response.data;
   });
@@ -70,23 +85,32 @@ grasshopper.controller('MessageListController', function($scope, $http, $state, 
   $scope.message = new Message( {board_id: $stateParams.id} );
 
   $scope.addMessage= function() {
-  $scope.message.$save(function() {
-  location.reload();
-
-  });
- };
-$scope.deleteMessage = function( board_id, id ){
-  $http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/boards/" + board_id + "/messages/" + id }).success(
-    function(data) {
+    $scope.message.$save(function() {
       location.reload();
-    })
+    });
+  };
+
+  $scope.deleteMessage = function(board_id, id) {
+    if(noticeService.showPopup('Are you sure you want to delete this?')){
+      $scope.message.$delete(board_id, id).then(function() {
+        location.reload();
+      });
+    };
   };
 });
 
-grasshopper.controller('MessageViewController', function($scope, $state, $stateParams, Message, $window) {
- $scope.message = Message.get({ board_id: $stateParams.board_id, id: $stateParams.id});
+grasshopper.controller('MessageViewController', function($scope, $state, $stateParams, Message, Board, $window) {
+  $scope.message = Message.get({ board_id: $stateParams.board_id, id: $stateParams.id});
+
+  $scope.updateMessage = function() {
+    $scope.message.$update(function() {
+      $state.go('viewMessage', { board_id: $stateParams.board_id, id: $stateParams.id });
+    });
+  };
 });
 
+
+  // USER
 grasshopper.controller('UserController', function($scope, $state, $http, userService, $window) {
   userService.getUser().then(function (response) {
     $scope.user = response.data;
@@ -98,6 +122,9 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
       $scope.password = "";
       $window.location.reload();
       $state.go('boards');
+    }).error(function(data) {
+      $scope.errors = true;
+      $scope.details = data.message;
     })
   };
 
@@ -109,22 +136,26 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
       $scope.password_confirmation = "";
       $window.location.reload();
       $state.go('boards');
+    }).error(function(data) {
+      $scope.signup_errors = true;
+      $scope.signup_details = data.message;
     })
   };
 
   $scope.logOut = function(){
-  $http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/sessions/" + $scope.user.id }).success(function(data) {
-    console.log(data);
-    $window.location.reload();
-    $state.go('boards');
+    $http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/sessions/" + $scope.user.id }).success(function(data) {
+      console.log(data);
+      $window.location.reload();
+      $state.go('boards');
     })
   };
 })
 
+  // SEARCH
 grasshopper.controller('SearchController', function($scope, $http, $state, $stateParams, Message, $window) {
-$scope.search = function(){
-  $http({method: 'GET', url: "http://grasshopperapi.herokuapp.com/search/?query=" + $scope.search.query}).success(function(result) {
-    $scope.results = result;
+  $scope.search = function(){
+    $http({method: 'GET', url: "http://grasshopperapi.herokuapp.com/search/?query=" + $scope.search.query}).success(function(result) {
+      $scope.results = result;
     });
   }
 });
@@ -155,7 +186,11 @@ angular.module('grasshopper').config(function($stateProvider) {
     url: '/boards/:board_id/messages/new',
     templateUrl: 'pages/message-add.html',
     controller: 'MessageCreateController'
-  }).state('account', { // create
+  }).state('editMessage', { // update
+    url: '/boards/:board_id/messages/:id/edit',
+    templateUrl: 'pages/message-edit.html',
+    controller: 'MessageViewController'
+  }).state('account', {
     url: '/account/',
     templateUrl: 'pages/account.html',
     controller: 'UserController'
@@ -163,11 +198,14 @@ angular.module('grasshopper').config(function($stateProvider) {
     url: '/search/',
     templateUrl: 'pages/search.html',
     controller: 'SearchController'
+  }).state('api', {
+    url: '/api',
+    templateUrl: 'pages/api.html'
   });
 }).run(function($state) {
   $state.go('boards');
 });
 
-// $locationProvider.html5Mode(true);
+
 
 

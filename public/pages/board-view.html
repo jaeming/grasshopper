@@ -9,10 +9,11 @@
     <p>{{board.text}}</p>
     <small>By {{board.user_name}}</small>
     <div class='time'><small>On {{board.created_at}}</small></div>
-    <br>
-    <button ng-if='board.user_name === user.name' ng-click="editBoard({id:board.id})" class='btn new'>EDIT</button>
+    <div ng-if='board.user_name === user.name'>
+      <a ui-sref="editBoard({id:board.id})" class='btn new btn-sm '>Edit</a>
+      <button ng-click="deleteBoard({id:board.id})" class='btn-sm btn new'>Delete</button>
+    </div>
   </div>
-  <br>
   <div ng-controller="MessageListController" class="margin-top">
     <h4 class="message-title">Messages</h4>
     <div ng-repeat="message in messages">
@@ -21,15 +22,17 @@
         <small>By {{message.user_name}}</small>
         <div class='time'><a ui-sref="viewMessage({board_id:message.board_id, id:message.id})"><small>{{message.created_at}}</small></a></div>
         <div ng-if='message.user_name === user.name'>
-          <button ng-click="deleteMessage(message.board_id, message.id)" class="btn btn-danger btn-sm">Delete</button>
+          <a ui-sref="editMessage({board_id:message.board_id, id:message.id})" class='btn new btn-sm '>Edit</a>
+          <button ng-click="deleteMessage({board_id:message.board_id, id:message.id})" class="btn btn-danger btn-sm">Delete</button>
         </div>
       </div>
     </div>
     <div class="form-container">
-      <form role="form" ng-submit="addMessage({board_id:board.id})" novalidate="novalidate" id="message-form" autocomplete="off">
-        <div class="form-group">
+      <form role="form" name="messageForm" ng-submit="addMessage({board_id:board.id})" novalidate id="message-form" autocomplete="off">
+        <div class="form-group" ng-class="{ 'has-error' : messageForm.name.$invalid && !messageForm.name.$pristine }">
           <label for="body" class="sr-only">body</label>
-          <textarea rows="4" cols="50" ng-model="message.body" class="form-control" placeholder="Leave a new message"></textarea>
+          <textarea rows="4" cols="50" name="message" ng-model="message.body" class="form-control" placeholder="Leave a new message" ng-minlength="5" required></textarea>
+ <p ng-show="messageForm.message.$error.minlength" class="help-block">Message must be at least 5 characters</p>
         </div>
         <br>
         <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">

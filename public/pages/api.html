@@ -1,3 +1,229 @@
 <section class="main">
-  <h1>Wait for it...</h1>
+<h1>Grasshopper API</h1>
+
+
+<p>The grasshopper boards were built as a RAILS API in order for me to explore how Rails works as a RESTful JSON-based interface.</p>
+
+<p>The deployment of this project lives at <a href="http://grasshopperapi.herokuapp.com/boards">grasshopperapi.herokuapp.com/boards </a>
+. or examine it on <a href="https://github.com/jaeming/grasshopper">github</a>.</p>
+
+<p>To fully understand how the API could utilized on the front-end, I have also built an Angular JS front-end, which can be found at <a href="http://grassy.shufflebox.org/">grassy.shufflebox.org </a>
+. Github link <a href="https://github.com/jaeming/Grasshopper-angular">here</a>.</p>
+
+<p>Hooking into a RESTful API is simple in concept but I thought I'd write a little documentation anyway.</p>
+
+<p>All data is in JSON format.</p>
+
+<p>The endpoints available are:</p>
+
+<div class="box-wide">
+<h3>Boards:</h3>
+
+<p><code>GET    /boards</code></p>
+
+<p><code>POST   /boards</code></p>
+
+<p><code>PUT    /boards/:id</code></p>
+
+<p><code>DELETE /boards/:id</code></p>
+
+<h3>Messages:</h3>
+
+<p><code>GET    /boards/:board_id/messages</code></p>
+
+<p><code>POST   /boards/:board_id/messages</code></p>
+
+<p><code>PUT    /boards/:board_id/messages/:id</code></p>
+
+<p><code>DELETE /boards/:board_id/messages/:id</code></p>
+
+<h3>User:</h3>
+
+<p><code>GET    /user/current_user</code></p>
+
+<p><code>POST   /users</code></p>
+
+<h3>Sessions:</h3>
+
+<p><code>POST   /sessions</code></p>
+
+<p><code>DELETE /sessions/:id</code></p>
+
+<h3>Search</h3>
+
+<p><code>GET    /search</code></p>
+</div>
+
+
+<h1 class="message-title">Usage</h1>
+
+
+<h3>User &amp; Users:</h3>
+
+<h6>POST</h6>
+
+<p>Post to the /users path to create a new user. <br />
+*Required fields are <strong>email</strong>, <strong>password</strong>, and <strong>password_confirmation</strong>.</p>
+
+<p>Using CURL, a new user signing up might look something like this:</p>
+
+<p><code>
+curl -XPOST -H "Content-Type: application/json" "http://grasshopperapi.herokuapp.com/users/" -d '{"email": "user@test.com", "password": "secret", "password_confirmation": "secret"}'
+</code></p>
+
+<h6>GET</h6>
+
+<p><code>/user/current_user</code> is a special path that will return the details of the user currently signed in. This will provide you will the following details:</p>
+
+<p><code>{"success":"true","status":"You are signed in","email":"karate@chop.com","name":"karate_chop","id":9}</code></p>
+
+<p>If the user has not established a session, it will return:</p>
+
+<p><code>{"success":"false","status":"You are not signed in","email":"Sign in / Sign up"}</code></p>
+
+
+<h3>Sessions:</h3>
+
+<p>First, a note about authentication. For this API I decided to explore a session-based approach using cookies. This has some pros and cons and is not truly a stateless approach when compared to something like Tokens but it suited my needs in this particular case and makes for an easy user approach.  </p>
+
+<p>The main thing to keep in mind is that you will need to save a <strong>cookie</strong> when signing in and send a cookie when doing any action that requires authentication (such as creating a new board). With CURL this is as easy as adding <code>-c cookies.txt</code> option when signing in and sending a <code>-b cookies.txt</code> option when enacting an authenticated action. </p>
+
+<p>If you were using a web-based front-end, you can use JS to get and send the cookie by enabling the withCredentials option: <code>xhr.withCredentials = true;</code></p>
+
+<p>In Angular, I achieved this by appending the following config to my application module:</p>
+
+<p><code>
+.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.defaults.withCredentials = true;
+}]);
+</code></p>
+
+<h6>POST</h6>
+
+<p>*Required fields are <strong>email</strong> and <strong>password</strong>.</p>
+
+<p>An example of creating a new session (signing in) using CURL:</p>
+
+<p><code>
+curl -XPOST -H "Content-Type: application/json" -c cookies.txt "http://grasshopperapi.herokuapp.com/sessions/" -d '{"email": "user@test.com", "password":"secret"}'
+</code></p>
+
+<h6>DELETE</h6>
+
+<p>A user can be logged out by destroying the session by id. Lets use an example from Angular this time:</p>
+
+<p><code>
+$http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/sessions/" + $scope.user.id })
+</code>
+where the user.id value could be set using the <code>/user/current_user</code></p>
+
+<hr />
+
+<h3>Boards &amp; Messages:</h3>
+
+<h6>GET</h6>
+
+<p>In the case of Boards and Messages, <strong>Get</strong> will retrieve an Index or a specific board or message if an id is supplied. Keep in mind that messages are nested within a specific board so you will need to specify both the board is as well as the message id for retrieving single messages.  </p>
+
+<p>retrieving the board index:</p>
+
+<p><code>http://grasshopperapi.herokuapp.com/boards</code></p>
+
+<p>as opposed to retrieving a specific single board:</p>
+
+<p><code>http://grasshopperapi.herokuapp.com/boards/2</code></p>
+
+<p>message index:</p>
+
+<p><code>http://grasshopperapi.herokuapp.com/boards/2/messages</code></p>
+
+<p>or a specific message:</p>
+
+<p><code>http://grasshopperapi.herokuapp.com/boards/2/messages/4</code></p>
+
+<h6>POST</h6>
+
+<p>*Required fields for board are <strong>title</strong> and <strong>text</strong>.</p>
+
+<p>*Required field for message is <strong>body</strong>.</p>
+
+<p>We can create a new board or message with the POST action.
+An example creating a new message in board 1:</p>
+
+<p><code>
+curl -XPOST -H "Content-Type: application/json" -b cookies.txt "http://grasshopperapi.herokuapp.com/boards/1/messages" -d '{"body": "really good message"}'
+</code></p>
+
+<p>The user must be signed in (have an active session) for to create boards &amp; messages.</p>
+
+<h6>PUT or PATCH</h6>
+
+<p>*Required fields for board edits are <strong>title</strong>, <strong>text</strong>, and <strong>id</strong>.</p>
+
+<p>*Required fields for message edits are <strong>body</strong> <strong>id</strong>.</p>
+
+<p>A board or message can be edited through PUT. PATCH is also supported:</p>
+
+<p><code>
+curl -v -H "Accept: application/json" -b cookies.txt -H "Content-type: application/json" -X
+PATCH -d '{"title":"Pragmatic programmers","id":3,"text":"Agile development with Rails second edition"}' http://grasshopperapi.herokuapp.com/boards/1
+</code></p>
+
+<p>To edit a board or message, the user must be the original creator of that board or message, as well as having an active session.</p>
+
+<h6>DELETE</h6>
+
+<p>Simply point your DELETE method at the url of the board or message ID you want gone.</p>
+
+<p><code>
+curl -i -H "Accept: application/json" -X DELETE http://grasshopperapi.herokuapp.com/boards/1/messages/4
+</code></p>
+
+<p>To delete a board or message, the user must be the original creator of that board or message, as well as having an active session.</p>
+
+
+<h3>Search:</h3>
+
+<h6>GET</h6>
+
+<p>The search feature is a GET method rather than a POST action.
+Append <em>?query=</em> followed by the serach term to the url and a list of boards and/or messages will be returned with matching results.</p>
+
+<p>Example:</p>
+
+<p><code>http://grasshopperapi.herokuapp.com/search?query=pizza</code></p>
+
+<p>returns all boards or messages that have the word 'pizza' in it.</p>
+
+<h2>Available JSON keys</h2>
+
+<p>The following JSON data is served by Rails</p>
+
+<h6>Boards:</h6>
+
+<p><code>
+id: 6,
+title: "what's your favorite pizza?",
+text: "Ever had Sushi pizza???",
+user_name: "silly_dog",
+created_at: "December 11, 2014",
+message_count: 1,
+url: "/boards/6"
+</code></p>
+
+<h6>Messages:</h6>
+
+<p><code>
+board_name: "what's your favorite pizza?",
+board_id: 6,
+id: 3,
+body: "I also like pizza",
+user_name: "lizaro",
+created_at: "2 days ago"
+</code></p>
+
+
+<p>If you have any specific questions about the API or the Angular JS Front-end example, please get in touch at daylightsavings@gmail.com. </p>
+
+
 </section>

@@ -35,7 +35,7 @@
         <ul ng-controller="UserController" class="nav navbar-nav navbar-right">
           <li><a ui-sref="boards">Boards</a></li>
           <li><a ui-sref="search">Search</a></li>
-          <li><a ng-href="#/api">API</a></li>
+          <li><a ui-sref="api">API</a></li>
           <li ng-if='user.success == "true"'><a ui-sref="account()">{{user.email}}</a></li>
           <li ng-if='user.success == "false"'><a ui-sref="account()">{{user.email}}</a></li>
         </ul>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </li></a>
-              <a ng-href="#/api">
+              <a ui-sref="api">
                 <li>
                   <div class="nav-item nav-img-3">
                     <div class="nav-info">

@@ -21,7 +21,7 @@ a:hover {
 }
 
 .message-title {
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   padding-bottom: 3px;
   border-bottom: 15px solid #ededed;
 }
@@ -63,6 +63,15 @@ a:hover {
   text-align: center;
   margin-left: 8%;
 }
+
+.box-wide {
+  background: #fff;
+  border-radius: 9px;
+  padding-top: 8px;
+  padding-bottom: 18px;
+  max-width: 500px;
+  padding-left: 18px;
+}
 .tab {
   background: #fff;
   color: #898989;
@@ -98,6 +107,17 @@ a:hover {
   height: 41px;
 }
 
+.help-block {
+  color: tomato;
+}
+
+.help-block-warning {
+  background: tomato;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
 
 .btn {
   transition: all 1000ms ease;

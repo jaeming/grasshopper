@@ -1,0 +1,21 @@
+<section class="margin-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-sm-9">
+        <div class="form-wrap">
+          <h1>Edit Message</h1>
+          <div class="form-container">
+            <form role="form" ng-submit="updateMessage()" novalidate="novalidate" id="newboard-form" autocomplete="off">
+              <div class="form-group">
+                <textarea rows="4" cols="50" ng-model="message.body" class="form-control" placeholder="message"></textarea>
+              </div>
+              <br>
+              <input type="submit" name="commit" class="btn-block btn btn-danger" value="Submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

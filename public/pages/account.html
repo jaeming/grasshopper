@@ -29,35 +29,36 @@
                 <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign in">
               </form>
             </div>
+            <p class="help-block-warning" ng-show="errors === true">Sorry, that was an incorrect email or password.</p>
           </div>
           <div ng-show="tab">
             <div class="form-container">
-              <form role="form" ng-submit="signUp()" novalidate="novalidate" id="signup-form" autocomplete="off">
+              <form role="form" name="userForm" ng-submit="signUp()" novalidate="novalidate" id="signup-form" autocomplete="off">
                 <div class="form-group">
                   <label for="email" class="sr-only">Email</label>
-                  <input type="email" ng-model="email" class="form-control" placeholder="Email Address">
+                  <input type="email" ng-model="email" name="email" class="form-control" placeholder="Email Address">
 
                   <label for="name" class="sr-only">name</label>
-                  <input type="name" ng-model="name" class="form-control" placeholder="User Name">
+                  <input type="name" ng-model="name" name="name" class="form-control" placeholder="User Name">
                 </div>
                 <div class="form-group">
                   <label for="password" class="sr-only">Password</label>
-                  <input type="password" ng-model="password" class="form-control" placeholder="Password">
+                  <input type="password" ng-model="password" name="password" class="form-control" placeholder="Password">
                   <label for="password_confirmation" class="sr-only">Password Confirmation</label>
-                  <input type="password" ng-model="password_confirmation" class="form-control" placeholder="Password Confirmation">
+                  <input type="password" ng-model="password_confirmation" name="password_confirmation" class="form-control" placeholder="Password Confirmation">
                 </div>
                 <br>
                 <input type="submit" name="commit" class="btn-block btn btn-danger" value="Sign Up">
               </form>
             </div>
+            <p class="help-block-warning" ng-show="signup_errors === true">Sorry, something went wrong there. Make sure you type in a valid email, username, and matching passwords.</p>
+            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">*Enter a valid email</p>
           </div>
-        </div> <!-- /.col-xs-12 -->
-      </div> <!-- /.row -->
-    </div> <!-- /.container -->
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-
 <br>
 
 
