@@ -5,4 +5,10 @@ class Board < ActiveRecord::Base
   validates :text, presence: true, length: { minimum: 5 }
   validates :user, presence: true
 
+
+  require 'elasticsearch/model'
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
 end
+Board.import

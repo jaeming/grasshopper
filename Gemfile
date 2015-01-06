@@ -27,6 +27,10 @@ gem 'active_model_serializers'
 
 gem 'newrelic_rpm'
 
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'jsonpath'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use SCSS for stylesheets
