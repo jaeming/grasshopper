@@ -1,9 +1,4 @@
-class Search
-  def self.for(query)
-    query_search = "%#{query.downcase}%"
+class Search < ActiveRecord::Base
 
-    Board.where('lower(title) LIKE :query or lower(text) LIKE :query', { query: query_search }) +
-    Message.where('lower(body) LIKE ?', query_search)
-  end
 end
 
