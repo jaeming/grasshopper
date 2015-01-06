@@ -313,10 +313,40 @@ div[ui-view].ng-enter {
   display: block !important;
 }
 
+.user-button {
+  opacity: 0;
+  -webkit-animation: subtle 1s forwards;
+  -moz-animation:    subtle 1s forwards;
+  -o-animation:      subtle 1s forwards;
+  animation:         subtle 1s forwards;
+}
 
+@-webkit-keyframes subtle {
+  0%   { opacity: 0; }
+  50%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes subtle {
+  0%   { opacity: 0; }
+  50%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes subtle {
+  0%   { opacity: 0; }
+  50%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes subtle {
+  0%   { opacity: 0; }
+  50%   { opacity: 0; }
+  100% { opacity: 1; }
+}
 
-
-
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+.ng-cloak, .x-ng-cloak,
+.ng-hide {
+    display: none !important;
+}
 
 
 

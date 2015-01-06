@@ -1,4 +1,4 @@
-<section class="margin-top">
+<section class="margin-top" >
   <div class="mobile-menu hidden-md hidden-lg hidden-sm">
     <a ui-sref="newBoard" class="btn new">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Board
@@ -9,9 +9,9 @@
     <p>{{board.text}}</p>
     <small>By {{board.user_name}}</small>
     <div class='time'><small>On {{board.created_at}}</small></div>
-    <div ng-if='board.user_name === user.name'>
-      <a ui-sref="editBoard({id:board.id})" class='btn new btn-sm '>Edit</a>
-      <button ng-click="deleteBoard({id:board.id})" class='btn-sm btn new'>Delete</button>
+    <div ng-cloak ng-if='board.user_name === user.name'>
+      <a ui-sref="editBoard({id:board.id})" class='btn new btn-sm user-button' ng-cloak>Edit</a>
+      <button ng-click="deleteBoard({id:board.id})" class='btn-sm btn new user-button' ng-cloak>Delete</button>
     </div>
   </div>
   <div ng-controller="MessageListController" class="margin-top">
@@ -21,9 +21,9 @@
         <p>{{message.body}}</p>
         <small>By {{message.user_name}}</small>
         <div class='time'><a ui-sref="viewMessage({board_id:message.board_id, id:message.id})"><small>{{message.created_at}}</small></a></div>
-        <div ng-if='message.user_name === user.name'>
-          <a ui-sref="editMessage({board_id:message.board_id, id:message.id})" class='btn new btn-sm '>Edit</a>
-          <button ng-click="deleteMessage({board_id:message.board_id, id:message.id})" class="btn btn-danger btn-sm">Delete</button>
+        <div ng-cloak ng-if='message.user_name === user.name'>
+          <a ui-sref="editMessage({board_id:message.board_id, id:message.id})" class='btn new btn-sm user-button' ng-cloak>Edit</a>
+          <button ng-click="deleteMessage({board_id:message.board_id, id:message.id})" class="btn btn-danger btn-sm user-button" ng-cloak>Delete</button>
         </div>
       </div>
     </div>
