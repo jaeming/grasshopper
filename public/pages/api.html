@@ -51,7 +51,7 @@
 
 <h3>Search</h3>
 
-<p><code>GET    /search</code></p>
+<p><code>GET    /search?q=</code></p>
 </div>
 
 
@@ -187,11 +187,11 @@ curl -i -H "Accept: application/json" -X DELETE http://grasshopperapi.herokuapp.
 <h6>GET</h6>
 
 <p>The search feature is a GET method rather than a POST action.
-Append <em>?query=</em> followed by the serach term to the url and a list of boards and/or messages will be returned with matching results.</p>
+Append <em>search?q=</em> followed by the serach term to the url and a list of boards and/or messages will be returned with matching results.</p>
 
 <p>Example:</p>
 
-<p><code>http://grasshopperapi.herokuapp.com/search?query=pizza</code></p>
+<p><code>http://grasshopperapi.herokuapp.com/search?q=pizza</code></p>
 
 <p>returns all boards or messages that have the word 'pizza' in it.</p>
 

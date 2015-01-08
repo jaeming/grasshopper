@@ -68,7 +68,7 @@ The endpoints available are:
 
 ```DELETE /sessions/:id```
 ###Search
-```GET    /search```
+```GET    /search?q=```
 
 ______
 #Usage
@@ -196,12 +196,11 @@ _____________
 ###Search:
 
 ######GET
-The search feature is a GET method rather than a POST action.
-Append *?query=* followed by the serach term to the url and a list of boards and/or messages will be returned with matching results.
+The search feature is a GET method. Use *search?q=* followed by the serach term to the url and a list of boards and/or messages will be returned with matching results.
 
 Example:
 
-```http://grasshopperapi.herokuapp.com/search?query=pizza```
+```http://grasshopperapi.herokuapp.com/search?q=pizza```
 
 returns all boards or messages that have the word 'pizza' in it.
 _____________
