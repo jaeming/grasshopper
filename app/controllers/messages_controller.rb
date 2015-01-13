@@ -1,5 +1,6 @@
 class MessagesController < ApiController
   respond_to :json
+  before_action :authenticate, except: [:index, :show]
 
   def index
     @board = Board.find(params[:board_id])
@@ -14,13 +15,9 @@ class MessagesController < ApiController
   end
 
   def create
-    if current_user
-      @board = Board.find(params[:board_id])
-      @message = current_user.messages.create(message_params.merge(board: @board))
-      render json: @message
-    else
-      permission_denied_error
-    end
+    @board = Board.find(params[:board_id])
+    @message = @user.messages.create(message_params.merge(board: @board))
+    render json: @message
   end
 
   def edit
@@ -32,7 +29,7 @@ class MessagesController < ApiController
   def update
     @board = Board.find(params[:board_id])
     @message = @board.messages.find(params[:id])
-    if current_user == @message.user
+    if @user == @message.user
       @message.update_attributes(message_params)
       respond_with @message
     else
@@ -43,7 +40,7 @@ class MessagesController < ApiController
   def destroy
     @board = Board.find(params[:board_id])
     @message = @board.messages.find(params[:id])
-    if current_user == @message.user
+    if @user == @message.user
       @message.destroy
       respond_with @message
     else
@@ -55,4 +52,5 @@ class MessagesController < ApiController
     def message_params
       params.permit(:body)
     end
+
 end

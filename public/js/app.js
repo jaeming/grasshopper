@@ -2,24 +2,29 @@ var grasshopper = angular.module('grasshopper', ['ui.router', 'ngAnimate', 'ngRe
   $httpProvider.defaults.withCredentials = true;
 }]);
 
+grasshopper.run(function($http) {
+    var userToken = localStorage.getItem('auth_token');
+    $http.defaults.headers.common["Authorization"] = "Token token=" + userToken;
+});
 
-// Services
+// Resources
 angular.module('grasshopper.services', []).factory('Board', function($resource) {
-  return $resource('http://grasshopperapi.herokuapp.com/boards/:id', { id: '@id' }, {
+  return $resource('/boards/:id', { id: '@id' }, {
     update: {
       method: 'PUT'
     }
   });
 })
 .factory('Message', function($resource) {
-  return $resource('http://grasshopperapi.herokuapp.com/boards/:board_id/messages/:id', { board_id: '@board_id',  id: '@id' }, {
+  return $resource('/boards/:board_id/messages/:id', { board_id: '@board_id',  id: '@id' }, {
     update: {
       method: 'PUT'
     }
   });
 });
 
-grasshopper.service('userService', function($http, $q) {
+// Services
+grasshopper.service('userService', function($http) {
   var self = this;
   self.user = null;
   self.getUser = function(){
@@ -27,7 +32,8 @@ grasshopper.service('userService', function($http, $q) {
       {
         return self.user;
       }
-    self.user = $http({method: 'GET', url: 'http://grasshopperapi.herokuapp.com/user/current_user.json'}).success(
+    var userToken = localStorage.getItem('auth_token');
+    self.user = $http({method: 'GET', url: '/user/current_user.json', headers: {'Authorization': 'Token token=' + userToken}}).success(
       function(data) {
         return data;
       });
@@ -39,3 +45,5 @@ grasshopper.service('noticeService', function($window){
     return $window.confirm(notice);
   }
 });
+
+

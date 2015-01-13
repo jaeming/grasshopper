@@ -17,6 +17,9 @@ http://github.com/jaeming/Grasshopper-angular
 ____________
 #DOCUMENTATION
 ____
+##
+To be revised with new token-based authentication...
+
 The grasshopper boards were built as a RAILS API in order for me to explore how Rails works as a RESTful JSON-based interface.
 
 The deployment of this project lives at [grasshopperapi.herokuapp.com/boards ](http://grasshopperapi.herokuapp.com/boards)
@@ -62,14 +65,6 @@ The endpoints available are:
 ```POST   /users```
 
 
-
-###Sessions:
-```POST   /sessions```
-
-```DELETE /sessions/:id```
-###Search
-```GET    /search?q=```
-
 ______
 #Usage
 ______
@@ -96,20 +91,6 @@ If the user has not established a session, it will return:
 
 ```{"success":"false","status":"You are not signed in","email":"Sign in / Sign up"}```
 _________
-###Sessions:
-First, a note about authentication. For this API I decided to explore a session-based approach using cookies. This has some pros and cons and is not truly a stateless approach when compared to something like Tokens but it suited my needs in this particular case and makes for an easy user approach.
-
-The main thing to keep in mind is that you will need to save a **cookie** when signing in and send a cookie when doing any action that requires authentication (such as creating a new board). With CURL this is as easy as adding ```-c cookies.txt``` option when signing in and sending a ```-b cookies.txt``` option when enacting an authenticated action.
-
-If you were using a web-based front-end, you can use JS to get and send the cookie by enabling the withCredentials option: ```xhr.withCredentials = true;```
-
-In Angular, I achieved this by appending the following config to my application module:
-
-```
-.config(['$httpProvider', function($httpProvider) {
-  $httpProvider.defaults.withCredentials = true;
-}]);
-```
 
 ######POST
 *Required fields are **email** and **password**.

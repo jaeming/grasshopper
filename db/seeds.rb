@@ -1,7 +1,7 @@
 require 'faker'
 
 8.times do
-  user = User.new(
+  user = User.create!(
   name:      Faker::Name.name,
   email:     Faker::Internet.email,
   password:  Faker::Lorem.characters(10)

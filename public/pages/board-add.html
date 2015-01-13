@@ -1,5 +1,5 @@
   <section class="margin-top">
-    <h4 ng-if="user.success == 'false'">You need to be signed in to do that.</h4>
+    <h4 ng-if="user.success != 'true'">You need to <a ui-sref="account()">sign in</a> first.</h4>
     <div ng-if="user.success == 'true'" class="container">
       <div class="row">
         <div class="col-xs-12 col-md-6 col-sm-9">

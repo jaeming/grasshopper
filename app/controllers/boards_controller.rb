@@ -1,5 +1,6 @@
 class BoardsController < ApiController
   respond_to :json
+  before_action :authenticate, except: [:index, :show]
 
   def index
     @boards = Board.order("created_at DESC").all
@@ -16,13 +17,9 @@ class BoardsController < ApiController
     respond_with @board
   end
 
-def create
-    if current_user
-      @board = current_user.boards.create(board_params)
-      respond_with @board
-    else
-      permission_denied_error
-    end
+  def create
+    @board = @user.boards.create(board_params)
+    respond_with @board
   end
 
   def edit
@@ -32,7 +29,7 @@ def create
 
   def update
     @board = Board.find(params[:id])
-    if current_user == @board.user
+    if @user == @board.user
       @board.update_attributes(board_params)
       respond_with @board
     else
@@ -42,7 +39,7 @@ def create
 
   def destroy
     @board = Board.find(params[:id])
-    if current_user == @board.user
+    if @user == @board.user
       @board.destroy
       respond_with @board
     else
@@ -52,8 +49,8 @@ def create
 
   private
 
-  def board_params
-    params.permit(:title, :text)
-  end
+    def board_params
+      params.permit(:title, :text)
+    end
 
-end
+  end

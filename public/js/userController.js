@@ -4,7 +4,8 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
   });
 
   $scope.logIn = function(){
-    $http({method: 'POST', url: "http://grasshopperapi.herokuapp.com/sessions", data: {email: $scope.email, password: $scope.password}}).success(function(data) {
+    $http({method: 'POST', url: "/user/sign_in", data: {email: $scope.email, password: $scope.password}}).success(function(data) {
+      localStorage.setItem('auth_token', data.auth_token);
       $scope.email = "";
       $scope.password = "";
       $window.location.reload();
@@ -16,7 +17,7 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
   };
 
   $scope.signUp = function(){
-    $http({method: 'POST', url: "http://grasshopperapi.herokuapp.com/users", data: {email: $scope.email, name: $scope.name, password: $scope.password, password_confirmation: $scope.password_confirmation}}).success(function(data) {
+    $http({method: 'POST', url: "/users", data: {email: $scope.email, name: $scope.name, password: $scope.password, password_confirmation: $scope.password_confirmation}}).success(function(data) {
       $scope.email = "";
       $scope.name = "";
       $scope.password = "";
@@ -30,7 +31,8 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
   };
 
   $scope.logOut = function(){
-    $http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/sessions/" + $scope.user.id }).success(function(data) {
+    var userToken = localStorage.getItem('auth_token');
+    $http({method: 'GET', url: "/user/sign_out", headers: {'Authorization': 'Token token=' + userToken}}).success(function(data) {
       console.log(data);
       $window.location.reload();
       $state.go('boards');

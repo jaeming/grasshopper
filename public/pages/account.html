@@ -1,13 +1,13 @@
-<section ng-show="user.success == 'true'" class="main center">
+  <section ng-show="user.success == 'true'" class="main center">
 <div class="box">
     <h4>{{user.name}}</h4>
-    <p>{{user.email}}.</p>
-    <p>{{user.status}}.</p>
+    <p>{{user.email}}</p>
+    <p>{{user.message}}.</p>
     <button ng-click="logOut()" class="btn btn-danger">Log out</button>
   </div>
 </div>
 </section>
-<section ng-show="user.success == 'false'" class="main">
+<section ng-show="user.success != 'true'" class="main">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-6 col-sm-9">

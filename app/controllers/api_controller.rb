@@ -2,23 +2,24 @@ class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
   respond_to :json
 
-  def permission_denied_error
-    error(403, 'Permission Denied!')
-  end
+  protected
+    def authenticate
+      authenticate_token || permission_denied_error
+    end
 
-  def error(status, message = 'Something went wrong')
-    response = {
-      response_type: "ERROR",
-      message: message
-    }
+    def authenticate_token
+      authenticate_with_http_token do |token, options|
+        @user = User.find_by(auth_token: token)
+      end
+    end
 
-    render json: response.to_json, status: status
-  end
+    def permission_denied_error
+      error('false', 401, 'Sign up / Sign in.')
+    end
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
-
-  helper_method :current_user
+    def error(success, status, message)
+      response = { success: 'false', response_type: status, message: message }
+      render json: response, status: status, message: message
+    end
 
 end

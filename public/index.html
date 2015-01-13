@@ -14,11 +14,12 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script src="js/app.js"></script>
-  <script src="/js/routes.js"></script>
+  <script src="js/routes.js"></script>
   <script src="js/boardsController.js"></script>
   <script src="js/messagesController.js"></script>
   <script src="js/userController.js"></script>
   <script src="js/searchController.js"></script>
+
 
 </head>
 <body>
@@ -42,7 +43,7 @@
           <li><a ui-sref="search">Search</a></li>
           <li><a ui-sref="api">API</a></li>
           <li ng-if='user.success == "true"'><a ui-sref="account()">{{user.email}}</a></li>
-          <li ng-if='user.success == "false"'><a ui-sref="account()">{{user.email}}</a></li>
+          <li ng-if='user.success != "true"'><a ui-sref="account()">Sign in / Sign up</a></li>
         </ul>
       </div>
     </div>
