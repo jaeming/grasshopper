@@ -7,6 +7,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'elasticsearch-extensions'
 end
 
 gem 'pry-rails'

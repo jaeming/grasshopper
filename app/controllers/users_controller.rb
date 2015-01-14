@@ -43,15 +43,4 @@ class UsersController < ApiController
     def user_params
       params.permit(:email, :password, :password_confirmation, :name)
     end
-
-    # def set_auth_token
-    #   user = User.find_by_email(params[:email])
-    #   return if user.auth_token.present?
-    #   generate_auth_token
-    # end
-
-    # def generate_auth_token
-    #   SecureRandom.uuid.gsub(/\-/,'')
-    # end
-
 end

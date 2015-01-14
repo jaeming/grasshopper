@@ -1,8 +1,6 @@
 module AuthHelper
-  def login user=nil
-    @user = user || create(:user)
-    session[:user_id] = @user.id
+  def login
+    @user = create(:user)
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(@user.auth_token)
   end
 end
-
-
