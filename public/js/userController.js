@@ -18,6 +18,7 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
 
   $scope.signUp = function(){
     $http({method: 'POST', url: "/users", data: {email: $scope.email, name: $scope.name, password: $scope.password, password_confirmation: $scope.password_confirmation}}).success(function(data) {
+      localStorage.setItem('auth_token', data.auth_token);
       $scope.email = "";
       $scope.name = "";
       $scope.password = "";
@@ -34,6 +35,7 @@ grasshopper.controller('UserController', function($scope, $state, $http, userSer
     var userToken = localStorage.getItem('auth_token');
     $http({method: 'GET', url: "/user/sign_out", headers: {'Authorization': 'Token token=' + userToken}}).success(function(data) {
       console.log(data);
+      localStorage.removeItem('auth_token');
       $window.location.reload();
       $state.go('boards');
     })

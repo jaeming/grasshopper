@@ -9,7 +9,7 @@ class UsersController < ApiController
 
   def create
     @user = User.create(user_params)
-    respond_with @user
+    render json: {auth_token: @user.auth_token}
   end
 
   def show_current_user
@@ -26,7 +26,7 @@ class UsersController < ApiController
     if user && user.authenticate(params[:password])
       user.set_auth_token
       user.save!
-      render json: user
+      render json: {auth_token: user.auth_token}
     else
       permission_denied_error
     end
@@ -43,4 +43,5 @@ class UsersController < ApiController
     def user_params
       params.permit(:email, :password, :password_confirmation, :name)
     end
+
 end

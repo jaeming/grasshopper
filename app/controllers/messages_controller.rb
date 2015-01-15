@@ -49,6 +49,7 @@ class MessagesController < ApiController
   end
 
   private
+
     def message_params
       params.permit(:body)
     end

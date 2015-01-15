@@ -5,11 +5,10 @@ body {
 
 a {
   border-bottom: 1px solid whitesmoke;
-  transition: all 1500ms ease;
+  transition: all 500ms ease;
 }
 
 a:hover {
-  font-size: 1.01em;
   text-decoration: none;
   border-bottom: 1px solid #df691a;
 }

@@ -2,6 +2,8 @@
 
 A messageboard API served up as JSON by **Ruby on Rails** and consumed by **AngularJS**.
 
+It is a simple message board done as a Cross-domain RESTful API with fearures like Elastic Search and a Token-based Authentication system made from scratch. Note: It requires an elastic search server (heroku has a free add-on for elastic search as well.)
+
 I started this project to learn more about building a RESTful API in Rails.
 Then, I began to experiment with building a front-end using AngularJS to better understand how both ends actually connect.
 
@@ -17,8 +19,6 @@ http://github.com/jaeming/Grasshopper-angular
 ____________
 #DOCUMENTATION
 ____
-##
-To be revised with new token-based authentication...
 
 The grasshopper boards were built as a RAILS API in order for me to explore how Rails works as a RESTful JSON-based interface.
 
@@ -60,9 +60,15 @@ The endpoints available are:
 ```DELETE /boards/:board_id/messages/:id```
 ###User:
 
+```POST   /users```
+
+```POST   /user/sign_in```
+
+```POST   /user/sign_up```
+
 ```GET    /user/current_user```
 
-```POST   /users```
+```GET    /user/sign_out```
 
 
 ______
@@ -71,43 +77,72 @@ ______
 
 ###User & Users:
 
-######POST
+####First a word on Authentication
+Authentication is now token-based, in which all authenticated requests must pass a token in the header. Previously I had a session/cookies approach but this was not ideal due to users who have 3rd party cookies disabled. A password is still required however, as I wanted to leave the option of handling the token transparently on the client side (see more below on this).
+
+On sign-up or sign-in, a new token is generated and returned one time only in the JSON response. You can grab this token on the client side so that it can be handled without the user having to worry about it.  I used HTTP Store in my angular app for this purpose. Something like:
+
+```localStorage.setItem('auth_token', data.auth_token);```
+
+...in the Success promise, which can then be retrieved later with:
+
+```var userToken = localStorage.getItem('auth_token');```
+
+
+In my angular app I then use:
+
+```$http.defaults.headers.common["Authorization"] = "Token token=" + userToken;```
+
+…which will set the Authorization header for each request.
+
+CURL would pass the token with a flag like this:
+
+```-H "Authorization: Token token=1d1d200abe254195b04937e47a8a80db"```
+
+######POST actions:
+######/users
 Post to the /users path to create a new user.
-*Required fields are **email**, **password**, and **password_confirmation**.
+*Required fields are **email**, **name**, **password**, and **password_confirmation**.
 
 Using CURL, a new user signing up might look something like this:
 
 ```
-curl -XPOST -H "Content-Type: application/json" "http://grasshopperapi.herokuapp.com/users/" -d '{"email": "user@test.com", "password": "secret", "password_confirmation": "secret"}'
+curl -XPOST -H "Content-Type: application/json" "http://grasshopperapi.herokuapp.com/users/" -d '{"email": "lulu@test.com", "name": "lulu" "password": "secret", "password_confirmation": "secret"}'
+```
+######/user/sign_in
+Post to the above endpoint to sign in.
+*Required fields are **email**, and **password**.
+
+Sign in example with CURL:
+
+```
+curl -XPOST -H "Content-Type: application/json" "grasshopperapi.herokuapp.com/user/sign_in" -d '{"email": "tester@test.com", "password":"secret"}'
 ```
 
-######GET
+Upon successfully verifying your password, the token will be supplied like such:
+
+```{"auth_token":"df215c5033c7444dac8556eb560686d2"}```
+
+Grab this and use it client side for all authenticated requests.  If the token gets lost, sign up again to get a new one generated.
+
+######GET actions:
+######/user/current_user
 
 ```/user/current_user``` is a special path that will return the details of the user currently signed in. This will provide you will the following details:
 
-```{"success":"true","status":"You are signed in","email":"karate@chop.com","name":"karate_chop","id":9}```
+```{"success":"true","message":"You are signed in","email":"luckycat@test.com","name":"luckycat","id":17}```
 
-If the user has not established a session, it will return:
+If the user token was not able to be authenticated, it will return:
 
-```{"success":"false","status":"You are not signed in","email":"Sign in / Sign up"}```
-_________
+```{"success":"false","status":"You are not signed in","message":"Sign in / Sign up"}```
 
-######POST
-*Required fields are **email** and **password**.
+######/user/sign_out
+An authorized get request with the user's token to this endpoint will result in the user's token being set to nil, which effectively makes all authenticated requests unavailable thereafter.  You will need to sign the user in again to get a new token.  while performing the sign out action, you may wish to empty out your saved token on the client-side as well. Example with localstorage:
 
-An example of creating a new session (signing in) using CURL:
+```localStorage.removeItem('auth_token');```
 
-```
-curl -XPOST -H "Content-Type: application/json" -c cookies.txt "http://grasshopperapi.herokuapp.com/sessions/" -d '{"email": "user@test.com", "password":"secret"}'
-```
 
-######DELETE
-A user can be logged out by destroying the session by id. Lets use an example from Angular this time:
 
-```
-$http({method: 'DELETE', url: "http://grasshopperapi.herokuapp.com/sessions/" + $scope.user.id })
-```
-where the user.id value could be set using the ```/user/current_user```
 _________
 
 ###Boards & Messages:
@@ -216,16 +251,3 @@ created_at: "2 days ago"
 _____________
 
 If you have any specific questions about the API or the Angular JS Front-end example, please get in touch at daylightsavings@gmail.com.
-
-
-
-
-
-
-
-
-
-
-
-
-
