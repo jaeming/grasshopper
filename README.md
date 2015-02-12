@@ -1,11 +1,10 @@
-# Grasshopper API
+# Grasshopper Front-end
 
 A messageboard API served up as JSON by **Ruby on Rails** and consumed by **AngularJS**.
 
-It is a simple message board done as a Cross-domain RESTful API with fearures like Elastic Search and a Token-based Authentication system made from scratch. Note: It requires an elastic search server (heroku has a free add-on for elastic search as well.)
+This is the Angular Front-end that I wrote for the API. The Rails counterpart is found here:
 
-I started this project to learn more about building a RESTful API in Rails.
-Then, I began to experiment with building a front-end using AngularJS to better understand how both ends actually connect.
+http://github.com/jaeming/grasshopper
 
 The API is live:
 grasshopperapi.herokuapp.com
@@ -13,12 +12,13 @@ grasshopperapi.herokuapp.com
 Or the Angular Front-end can be found here:
 http://grassy.shufflebox.org
 
-Repo for angular front-end is found here:
-http://github.com/jaeming/Grasshopper-angular
+I started this project to learn more about building a RESTful API in Rails.
+Then, I began to experiment with building a front-end using AngularJS to better understand how both ends actually connect.
+
 
 ____________
 #DOCUMENTATION
-____
+
 
 The grasshopper boards were built as a RAILS API in order for me to explore how Rails works as a RESTful JSON-based interface.
 
@@ -139,34 +139,38 @@ If the user token was not able to be authenticated, it will return:
 ######/user/sign_out
 An authorized get request with the user's token to this endpoint will result in the user's token being set to nil, which effectively makes all authenticated requests unavailable thereafter.  You will need to sign the user in again to get a new token.  while performing the sign out action, you may wish to empty out your saved token on the client-side as well. Example with localstorage:
 
-```localStorage.removeItem('auth_token');```
+```
+localStorage.removeItem('auth_token');
+```
 
-
-
-_________
-
-###Boards & Messages:
+##Boards & Messages:
 
 ######GET
 
-In the case of Boards and Messages, **Get** will retrieve an Index or a specific board or message if an id is supplied. Keep in mind that messages are nested within a specific board so you will need to specify both the board is as well as the message id for retrieving single messages.
+In the case of Boards and Messages, **Get** will retrieve an Index or a specific board or message if an id is supplied. Keep in mind that messages are nested within a specific board so you will need to specify both the board is as well as the message id for retrieving single messages. retrieving the board index:
 
-retrieving the board index:
-
-```http://grasshopperapi.herokuapp.com/boards```
+```
+http://grasshopperapi.herokuapp.com/boards
+```
 
 as opposed to retrieving a specific single board:
 
-```http://grasshopperapi.herokuapp.com/boards/2```
+```
+http://grasshopperapi.herokuapp.com/boards/2
+```
 
 message index:
 
-```http://grasshopperapi.herokuapp.com/boards/2/messages```
+```
+http://grasshopperapi.herokuapp.com/boards/2/messages
+```
 
 or a specific message:
 
 
-```http://grasshopperapi.herokuapp.com/boards/2/messages/4```
+```
+http://grasshopperapi.herokuapp.com/boards/2/messages/4
+```
 
 
 ######POST
@@ -216,7 +220,9 @@ The search feature is a GET method. Use *search?q=* followed by the serach term 
 
 Example:
 
-```http://grasshopperapi.herokuapp.com/search?q=pizza```
+```
+http://grasshopperapi.herokuapp.com/search?q=pizza
+```
 
 returns all boards or messages that have the word 'pizza' in it.
 _____________
@@ -225,7 +231,6 @@ _____________
 
 The following JSON data is served by Rails
 ######Boards:
-
 
 ```
 id: 6,
@@ -248,6 +253,5 @@ user_name: "lizaro",
 created_at: "2 days ago"
 ```
 
-_____________
 
 If you have any specific questions about the API or the Angular JS Front-end example, please get in touch at daylightsavings@gmail.com.
